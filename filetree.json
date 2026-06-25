@@ -1,0 +1,2374 @@
+{
+  "home": {
+    ".cache": {
+      "pip": {
+        "http-v2": {
+          "0": {},
+          "1": {},
+          "2": {},
+          "4": {},
+          "5": {},
+          "6": {},
+          "8": {},
+          "a": {},
+          "b": {},
+          "c": {},
+          "d": {},
+          "e": {},
+          "f": {}
+        },
+        "wheels": {
+          "74": {},
+          "96": {}
+        }
+      },
+      "puppeteer": {
+        "chrome": {
+          "linux-131.0.6778.204": {}
+        },
+        "chrome-headless-shell": {
+          "linux-131.0.6778.204": {}
+        }
+      },
+      "uv": {
+        "CACHEDIR.TAG": {
+          "__file": true,
+          "size": 43
+        },
+        "archive-v0": {
+          "-Wll-6I82umwbbi3wUSDF": {},
+          "-ulVGlxCAqtIdnYvevKZn": {},
+          "-yhNTXDjxg0XLjB9sCgin": {},
+          "0weNB4t3F8AoUuTLu89CI": {},
+          "1HdkrjgSk3wf6pIoiZdX1": {},
+          "1RJ7918fRodqB7A-i7nlb": {},
+          "2eXuKMAw4_hlUOXUEScn_": {},
+          "2wcGSlKtZkUcoDvbUqniX": {},
+          "3Be0R9Z0oQumdZuuDJmft": {},
+          "44fYQTNmArsYm5fVX_5Y8": {},
+          "4pS1BGVXC1-lMk12wyBAa": {},
+          "4qYjZndt5dKyRUjV4fq5W": {},
+          "4tZtJS5kPKG42W9-1WjSA": {},
+          "66feAttboG6OuiiM6vNZo": {},
+          "6R_HEkU44lRvKoYfnWYmj": {},
+          "6ofjugLw3YPFBGRQBrPPY": {},
+          "77IlLryS5Pi_ONpngEAt5": {},
+          "7ZjddbGX89wAAQY3R2kbi": {},
+          "7kZv_SLswWmv855JfXEZX": {},
+          "81sLRm_acMk35gT9ciaSs": {},
+          "83EhrzskPYAFlN-Nj1KIN": {},
+          "8BXqB0OG22fqNBlY6afxG": {},
+          "9FC311TzNzb_8rKnudDPR": {},
+          "9KUf5YkDu-aqD6JW8lcVd": {},
+          "9RsddjVYdfrqGNTJty0gW": {},
+          "9T3Rxm8v1OrCZTSIQo8wh": {},
+          "AGFTrTpIaIArBqPOLZjPY": {},
+          "BdDxVZXElKh8C9P27LHIt": {},
+          "C5I5202tf9mjXR1fbSp9V": {},
+          "CASLYAkkKlL_VEuxdPTli": {},
+          "DTryzUSfFFtsESzfoRVGx": {},
+          "E_DEcUCZwp_zxL-iS5NyY": {},
+          "Ei_aFEr4NGAgiB0ngaAst": {},
+          "Ekd8TR1EaEZ03njjE1Jm2": {},
+          "ElUkuoN-K3XNVYe34-HBu": {},
+          "GfpfIPQ3DGL85iIRHydI8": {},
+          "HszeCU318_dZIqkiJlC2u": {},
+          "IYkHrtKPaTfZWviv-EYA8": {},
+          "J991mKi8IX7FN9z9hdM2f": {},
+          "JO3r2RI6ADzdjXQ2OR5eT": {},
+          "Kg57GlrookVFFYXTQ-SRR": {},
+          "Kinw_SuNeQvSy3vVwMlBK": {},
+          "KkDFBtUrk631K1GHJDu6c": {},
+          "L2X12Q0za8y6KLsYPssph": {},
+          "L36M7jfoydMlvvYbX5bCl": {},
+          "LFx8Nj7oibW36-W8qbvG8": {},
+          "LbWcewmn8GhzaavJJUOGd": {},
+          "Lj6QLLU9r7APsZipx3KoE": {},
+          "M8GfzYCXfyd8F7qPCx6Ju": {},
+          "MGgxwqy2YgJ9OlT7cG6O2": {},
+          "NJiWrOprqYeZhi8iikB93": {},
+          "OCfdKsmhSEzFqzgoSlQMc": {},
+          "OPeVwT8Pbaf5KNXQPZH09": {},
+          "Oh0oE1Y6mM6btAomo6HRc": {},
+          "Ox1jfaevol2B2sJCUw-C9": {},
+          "Ps18x22rcHaTei4ZW8AvZ": {},
+          "Q4zyop-gsAoZImtT0Qz39": {},
+          "QFbsnAi-688YnVKyKnLx5": {},
+          "R-Tv7JUZ7w8jrgQ7OYG1g": {},
+          "RDhwQpiA2S2YXOH4FKN2m": {},
+          "RECFU_4LbVV8MBKSWl8_f": {},
+          "RLf5VJ1HaiVkamjXv4bdE": {},
+          "RSD3vGblftQJuwn4NO6Yc": {},
+          "S-TWdfPkpAMNlcsdVs5nM": {},
+          "SBeUrsr6OAlJDO5hSCUNi": {},
+          "TlozT3ZWWGl9W_6DPTfsv": {},
+          "WtNUaEN0Qk5NET9eRHL3T": {},
+          "X8VOZEYI4LyHSGiGJFIgm": {},
+          "XJBZtMo0pg1lr1K1AjJke": {},
+          "XLFwv9j4x465i0C0ZFaK0": {},
+          "XLzkHBqpZlnCDNljp3sOD": {},
+          "Xm5KOLvGzhVPX2yccfJnZ": {},
+          "XuupIJmmQH4_GmemCw2zr": {},
+          "XvgqrYaCxTLFGhmhZFOvC": {},
+          "YuDbNMxq5YP6doFjrHlr1": {},
+          "ZMzQD4eBrL6jfWESXAeRG": {},
+          "ZnrTs5U2X0OomtKjVKJkS": {},
+          "_kdYz7sifXF6Agw4kMfpG": {},
+          "a641I1z5YpLSsHL5N2059": {},
+          "a8H0il7irO8p4-XKq9Y2U": {},
+          "cWa9c8frvHkuFw6S4vWer": {},
+          "dGp1i8USRwZ09TgF60ui-": {},
+          "dZnX6O5CqerecERCJ6A0a": {},
+          "dszY2Dsc_fVDb0dSfNFYy": {},
+          "fCDfAmnvbbc396KnL4vLL": {},
+          "fVqyi1MumAegW-P9os_k8": {},
+          "gFMjT4iv402A9Y8HvYTql": {},
+          "h8hhYLV8eNTKjUXfiBXAy": {},
+          "hv06KL9pXEw0w_YmKsb2y": {},
+          "ijXoUMChwlzjbHtdv7jB2": {},
+          "kHD3mT1crIPYXXRCR0WQH": {},
+          "kKdXovGIG9QPT_QczBwgu": {},
+          "m8EpyFbWpf_OyeHEEIXKe": {},
+          "n30xt_LXkNRoFSb9UIvvD": {},
+          "nsJe7Xt4RGUusGodq4k3r": {},
+          "nujREqDZTTTQtwAcuKrg5": {},
+          "oMHOyEchIBVmXeW7agUF-": {},
+          "oh4xgMHRBNa9pzDXv_Z3F": {},
+          "owo0GB9rOYPXmoyiQYQwk": {},
+          "pmwCV5DKhlVxOUWyVd6hn": {},
+          "ql9TWpe5bzm2NAeohB08p": {},
+          "qltn6RqGxInfWuxF_P0o8": {},
+          "qnDkhRPwCIW7kLHxR-FWB": {},
+          "r2zo636e2SjISbNFUapXT": {},
+          "sooS4mRm3xIaYtzgAuGt_": {},
+          "tpPOPHYkjdBjXHm0kft4Y": {},
+          "tzxKsRss7df8AlerbODzF": {},
+          "ut8mV33NIZJ3n8JsvzrJr": {},
+          "v-9Cyq753RFpfTl4aWGLB": {},
+          "vUTcpnkkVXtiVHZoBu6af": {},
+          "vx1BUcKxrVlQnfk81vdsj": {},
+          "wZrHSek2W6WiMcktoDCjq": {},
+          "wy-1vudm19ETfuE0rUH42": {},
+          "xfeo6hdUZ3Jaw0n9Gcnlx": {},
+          "z-j_2WT3hkND2yLiW3HQF": {}
+        },
+        "builds-v0": {},
+        "interpreter-v4": {
+          "cfa55447e292f25d": {}
+        },
+        "sdists-v9": {
+          "index": {}
+        },
+        "simple-v21": {
+          "index": {}
+        },
+        "wheels-v6": {
+          "index": {}
+        }
+      }
+    },
+    ".config": {
+      "uv": {
+        "uv-receipt.json": {
+          "__file": true,
+          "size": 318
+        }
+      }
+    },
+    ".local": {
+      "bin": {
+        "uv": {
+          "__file": true,
+          "size": 59980664
+        },
+        "uvx": {
+          "__file": true,
+          "size": 353600
+        }
+      }
+    },
+    ".npm": {
+      "_logs": {
+        "2026-04-18T18_10_54_166Z-debug-0.log": {
+          "__file": true,
+          "size": 766
+        },
+        "2026-04-18T18_10_54_424Z-debug-0.log": {
+          "__file": true,
+          "size": 790
+        },
+        "2026-04-18T18_10_54_636Z-debug-0.log": {
+          "__file": true,
+          "size": 632
+        },
+        "2026-04-18T18_12_33_085Z-debug-0.log": {
+          "__file": true,
+          "size": 1136179
+        },
+        "2026-04-18T18_12_56_182Z-debug-0.log": {
+          "__file": true,
+          "size": 866
+        }
+      },
+      "_update-notifier-last-checked": {
+        "__file": true,
+        "size": 0
+      }
+    },
+    ".npm-global": {
+      "bin": {
+        "markdown-pdf": {
+          "__symlink": "../lib/node_modules/markdown-pdf/bin/markdown-pdf"
+        },
+        "markdown-toc": {
+          "__symlink": "../lib/node_modules/markdown-toc/cli.js"
+        },
+        "markdownlint": {
+          "__symlink": "../lib/node_modules/markdownlint-cli/markdownlint.js"
+        },
+        "markdownlint-cli2": {
+          "__symlink": "../lib/node_modules/markdownlint-cli2/markdownlint-cli2-bin.mjs"
+        },
+        "marked": {
+          "__symlink": "../lib/node_modules/marked/bin/marked.js"
+        },
+        "mmdc": {
+          "__symlink": "../lib/node_modules/@mermaid-js/mermaid-cli/src/cli.js"
+        },
+        "playwright": {
+          "__symlink": "../lib/node_modules/playwright/cli.js"
+        },
+        "remark": {
+          "__symlink": "../lib/node_modules/remark-cli/cli.js"
+        },
+        "ts-node": {
+          "__symlink": "../lib/node_modules/ts-node/dist/bin.js"
+        },
+        "ts-node-cwd": {
+          "__symlink": "../lib/node_modules/ts-node/dist/bin-cwd.js"
+        },
+        "ts-node-esm": {
+          "__symlink": "../lib/node_modules/ts-node/dist/bin-esm.js"
+        },
+        "ts-node-script": {
+          "__symlink": "../lib/node_modules/ts-node/dist/bin-script.js"
+        },
+        "ts-node-transpile-only": {
+          "__symlink": "../lib/node_modules/ts-node/dist/bin-transpile.js"
+        },
+        "ts-script": {
+          "__symlink": "../lib/node_modules/ts-node/dist/bin-script-deprecated.js"
+        },
+        "tsc": {
+          "__symlink": "../lib/node_modules/typescript/bin/tsc"
+        },
+        "tsserver": {
+          "__symlink": "../lib/node_modules/typescript/bin/tsserver"
+        },
+        "tsx": {
+          "__symlink": "../lib/node_modules/tsx/dist/cli.mjs"
+        }
+      },
+      "lib": {
+        "node_modules": {
+          "@mermaid-js": {},
+          "docx": {},
+          "graphviz": {},
+          "markdown-pdf": {},
+          "markdown-toc": {},
+          "markdownlint-cli": {},
+          "markdownlint-cli2": {},
+          "marked": {},
+          "pdf-lib": {},
+          "pdfjs-dist": {},
+          "playwright": {},
+          "pptxgenjs": {},
+          "react": {},
+          "react-dom": {},
+          "react-icons": {},
+          "remark-cli": {},
+          "remark-preset-lint-recommended": {},
+          "sharp": {},
+          "ts-node": {},
+          "tsx": {},
+          "typescript": {}
+        }
+      },
+      "share": {
+        "man": {
+          "man1": {}
+        }
+      }
+    },
+    ".npmrc": {
+      "__file": true,
+      "size": 74
+    },
+    ".wget-hsts": {
+      "__file": true,
+      "size": 215
+    },
+    "livefs": {
+      "__file": true,
+      "size": 21632
+    },
+    "livefs.c": {
+      "__file": true,
+      "size": 5659
+    },
+    "livefs.py": {
+      "__file": true,
+      "size": 5524
+    },
+    "livefs2": {
+      "__file": true,
+      "size": 30248
+    },
+    "livefs2.c": {
+      "__file": true,
+      "size": 13763
+    },
+    "livefs3": {
+      "__file": true,
+      "size": 30360
+    },
+    "livefs3.c": {
+      "__file": true,
+      "size": 12044
+    },
+    "livefs4": {
+      "__file": true,
+      "size": 30368
+    },
+    "livefs4.c": {
+      "__file": true,
+      "size": 12394
+    },
+    "pi_server.py": {
+      "__file": true,
+      "size": 10887
+    },
+    "shellfs": {
+      "__file": true,
+      "size": 25568
+    },
+    "shellfs.c": {
+      "__file": true,
+      "size": 10355
+    },
+    "shellfs2": {
+      "__file": true,
+      "size": 25560
+    },
+    "shellfs2.c": {
+      "__file": true,
+      "size": 9276
+    },
+    "shellfs3": {
+      "__file": true,
+      "size": 25608
+    },
+    "shellfs3.c": {
+      "__file": true,
+      "size": 8741
+    }
+  },
+  "etc": {
+    ".java": {},
+    ".pwd.lock": {
+      "__file": true,
+      "size": 0
+    },
+    "ImageMagick-6": {
+      "coder.xml": {
+        "__file": true,
+        "size": 899
+      },
+      "colors.xml": {
+        "__file": true,
+        "size": 1383
+      },
+      "delegates.xml": {
+        "__file": true,
+        "size": 13192
+      },
+      "log.xml": {
+        "__file": true,
+        "size": 1642
+      },
+      "magic.xml": {
+        "__file": true,
+        "size": 888
+      },
+      "mime.xml": {
+        "__file": true,
+        "size": 134622
+      },
+      "policy-debian.xml": {
+        "__file": true,
+        "size": 7851
+      },
+      "policy-limited.xml": {
+        "__file": true,
+        "size": 5517
+      },
+      "policy-open.xml": {
+        "__file": true,
+        "size": 7729
+      },
+      "policy-secure.xml": {
+        "__file": true,
+        "size": 5816
+      },
+      "policy-websafe.xml": {
+        "__file": true,
+        "size": 5781
+      },
+      "policy.xml": {
+        "__file": true,
+        "size": 7851
+      },
+      "quantization-table.xml": {
+        "__file": true,
+        "size": 2369
+      },
+      "thresholds.xml": {
+        "__file": true,
+        "size": 11452
+      },
+      "type-apple.xml": {
+        "__file": true,
+        "size": 29218
+      },
+      "type-dejavu.xml": {
+        "__file": true,
+        "size": 8490
+      },
+      "type-ghostscript.xml": {
+        "__file": true,
+        "size": 9544
+      },
+      "type-urw-base35.xml": {
+        "__file": true,
+        "size": 10474
+      },
+      "type-windows.xml": {
+        "__file": true,
+        "size": 13706
+      },
+      "type.xml": {
+        "__file": true,
+        "size": 651
+      }
+    },
+    "LatexMk": {
+      "__file": true,
+      "size": 15
+    },
+    "PackageKit": {
+      "PackageKit.conf": {
+        "__file": true,
+        "size": 706
+      },
+      "Vendor.conf": {
+        "__file": true,
+        "size": 1718
+      }
+    },
+    "X11": {
+      "Xreset": {
+        "__file": true,
+        "size": 709
+      },
+      "Xreset.d": {},
+      "Xresources": {},
+      "Xsession": {
+        "__file": true,
+        "size": 4139
+      },
+      "Xsession.d": {},
+      "Xsession.options": {
+        "__file": true,
+        "size": 265
+      },
+      "fonts": {},
+      "rgb.txt": {
+        "__file": true,
+        "size": 17394
+      },
+      "xkb": {},
+      "xorg.conf.d": {}
+    },
+    "adduser.conf": {
+      "__file": true,
+      "size": 3444
+    },
+    "alternatives": {
+      "README": {
+        "__file": true,
+        "size": 100
+      },
+      "animate": {
+        "__symlink": "/usr/bin/animate-im6.q16"
+      },
+      "animate-im6": {
+        "__symlink": "/usr/bin/animate-im6.q16"
+      },
+      "awk": {
+        "__symlink": "/usr/bin/mawk"
+      },
+      "bibtex": {
+        "__symlink": "/usr/bin/bibtex.original"
+      },
+      "c++": {
+        "__symlink": "/usr/bin/g++"
+      },
+      "c89": {
+        "__symlink": "/usr/bin/c89-gcc"
+      },
+      "c99": {
+        "__symlink": "/usr/bin/c99-gcc"
+      },
+      "cc": {
+        "__symlink": "/usr/bin/gcc"
+      },
+      "compare": {
+        "__symlink": "/usr/bin/compare-im6.q16"
+      },
+      "compare-im6": {
+        "__symlink": "/usr/bin/compare-im6.q16"
+      },
+      "composite": {
+        "__symlink": "/usr/bin/composite-im6.q16"
+      },
+      "composite-im6": {
+        "__symlink": "/usr/bin/composite-im6.q16"
+      },
+      "conjure": {
+        "__symlink": "/usr/bin/conjure-im6.q16"
+      },
+      "conjure-im6": {
+        "__symlink": "/usr/bin/conjure-im6.q16"
+      },
+      "convert": {
+        "__symlink": "/usr/bin/convert-im6.q16"
+      },
+      "convert-im6": {
+        "__symlink": "/usr/bin/convert-im6.q16"
+      },
+      "cpp": {
+        "__symlink": "/usr/bin/cpp"
+      },
+      "default-GM.sf2": {
+        "__symlink": "/usr/share/sounds/sf2/TimGM6mb.sf2"
+      },
+      "default-GM.sf3": {
+        "__symlink": "/usr/share/sounds/sf2/TimGM6mb.sf2"
+      },
+      "display": {
+        "__symlink": "/usr/bin/display-im6.q16"
+      },
+      "display-im6": {
+        "__symlink": "/usr/bin/display-im6.q16"
+      },
+      "fonts-japanese-gothic.ttf": {
+        "__symlink": "/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf"
+      },
+      "identify": {
+        "__symlink": "/usr/bin/identify-im6.q16"
+      },
+      "identify-im6": {
+        "__symlink": "/usr/bin/identify-im6.q16"
+      },
+      "import": {
+        "__symlink": "/usr/bin/import-im6.q16"
+      },
+      "import-im6": {
+        "__symlink": "/usr/bin/import-im6.q16"
+      },
+      "java": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/bin/java"
+      },
+      "java.1.gz": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/man/man1/java.1.gz"
+      },
+      "jexec": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/lib/jexec"
+      },
+      "jexec-binfmt": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/lib/jar.binfmt"
+      },
+      "jpackage": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/bin/jpackage"
+      },
+      "jpackage.1.gz": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/man/man1/jpackage.1.gz"
+      },
+      "keytool": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/bin/keytool"
+      },
+      "keytool.1.gz": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/man/man1/keytool.1.gz"
+      },
+      "libblas.so.3-x86_64-linux-gnu": {
+        "__symlink": "/usr/lib/x86_64-linux-gnu/blas/libblas.so.3"
+      },
+      "liblapack.so.3-x86_64-linux-gnu": {
+        "__symlink": "/usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3"
+      },
+      "lzcat": {
+        "__symlink": "/usr/bin/xzcat"
+      },
+      "lzcmp": {
+        "__symlink": "/usr/bin/xzcmp"
+      },
+      "lzdiff": {
+        "__symlink": "/usr/bin/xzdiff"
+      },
+      "lzegrep": {
+        "__symlink": "/usr/bin/xzegrep"
+      },
+      "lzfgrep": {
+        "__symlink": "/usr/bin/xzfgrep"
+      },
+      "lzgrep": {
+        "__symlink": "/usr/bin/xzgrep"
+      },
+      "lzless": {
+        "__symlink": "/usr/bin/xzless"
+      },
+      "lzma": {
+        "__symlink": "/usr/bin/xz"
+      },
+      "lzmore": {
+        "__symlink": "/usr/bin/xzmore"
+      },
+      "mogrify": {
+        "__symlink": "/usr/bin/mogrify-im6.q16"
+      },
+      "mogrify-im6": {
+        "__symlink": "/usr/bin/mogrify-im6.q16"
+      },
+      "montage": {
+        "__symlink": "/usr/bin/montage-im6.q16"
+      },
+      "montage-im6": {
+        "__symlink": "/usr/bin/montage-im6.q16"
+      },
+      "nawk": {
+        "__symlink": "/usr/bin/mawk"
+      },
+      "nc": {
+        "__symlink": "/bin/nc.openbsd"
+      },
+      "netcat": {
+        "__symlink": "/bin/nc.openbsd"
+      },
+      "nodejs": {
+        "__symlink": "/usr/bin/node"
+      },
+      "open": {
+        "__symlink": "/usr/bin/xdg-open"
+      },
+      "pager": {
+        "__symlink": "/bin/more"
+      },
+      "pdftk": {
+        "__symlink": "/usr/bin/pdftk.pdftk-java"
+      },
+      "pinentry": {
+        "__symlink": "/usr/bin/pinentry-curses"
+      },
+      "rmiregistry": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/bin/rmiregistry"
+      },
+      "rmiregistry.1.gz": {
+        "__symlink": "/usr/lib/jvm/java-21-openjdk-amd64/man/man1/rmiregistry.1.gz"
+      },
+      "rmt": {
+        "__symlink": "/usr/sbin/rmt-tar"
+      },
+      "stream": {
+        "__symlink": "/usr/bin/stream-im6.q16"
+      },
+      "stream-im6": {
+        "__symlink": "/usr/bin/stream-im6.q16"
+      },
+      "unlzma": {
+        "__symlink": "/usr/bin/unxz"
+      },
+      "which": {
+        "__symlink": "/usr/bin/which.debianutils"
+      },
+      "x-cursor-theme": {
+        "__symlink": "/usr/share/icons/Adwaita/cursor.theme"
+      },
+      "xdvi.bin": {
+        "__symlink": "/usr/bin/xdvi-xaw"
+      }
+    },
+    "apparmor.d": {
+      "local": {},
+      "usr.lib.libreoffice.program.oosplash": {
+        "__file": true,
+        "size": 1519
+      },
+      "usr.lib.libreoffice.program.senddoc": {
+        "__file": true,
+        "size": 1227
+      },
+      "usr.lib.libreoffice.program.soffice.bin": {
+        "__file": true,
+        "size": 10740
+      },
+      "usr.lib.libreoffice.program.xpdfimport": {
+        "__file": true,
+        "size": 1046
+      }
+    },
+    "apt": {
+      "apt.conf.d": {},
+      "auth.conf.d": {},
+      "keyrings": {},
+      "preferences.d": {},
+      "sources.list": {
+        "__file": true,
+        "size": 270
+      },
+      "sources.list.d": {},
+      "trusted.gpg.d": {}
+    },
+    "bash.bashrc": {
+      "__file": true,
+      "size": 2319
+    },
+    "bash_completion.d": {
+      "git-prompt": {
+        "__file": true,
+        "size": 439
+      },
+      "global-python-argcomplete": {
+        "__file": true,
+        "size": 379
+      }
+    },
+    "bindresvport.blacklist": {
+      "__file": true,
+      "size": 367
+    },
+    "binfmt.d": {},
+    "ca-certificates": {
+      "update.d": {}
+    },
+    "ca-certificates.conf": {
+      "__file": true,
+      "size": 6288
+    },
+    "cloud": {
+      "build.info": {
+        "__file": true,
+        "size": 50
+      }
+    },
+    "credstore": {},
+    "credstore.encrypted": {},
+    "cron.d": {
+      "e2scrub_all": {
+        "__file": true,
+        "size": 201
+      }
+    },
+    "cron.daily": {
+      "apt-compat": {
+        "__file": true,
+        "size": 1478
+      },
+      "dpkg": {
+        "__file": true,
+        "size": 123
+      }
+    },
+    "dbus-1": {
+      "session.d": {},
+      "system.d": {}
+    },
+    "dconf": {
+      "db": {}
+    },
+    "debconf.conf": {
+      "__file": true,
+      "size": 2967
+    },
+    "debian_version": {
+      "__file": true,
+      "size": 11
+    },
+    "default": {
+      "cacerts": {
+        "__file": true,
+        "size": 384
+      },
+      "dbus": {
+        "__file": true,
+        "size": 297
+      },
+      "locale": {
+        "__symlink": "../locale.conf"
+      },
+      "useradd": {
+        "__file": true,
+        "size": 1117
+      }
+    },
+    "deluser.conf": {
+      "__file": true,
+      "size": 1706
+    },
+    "dictionaries-common": {
+      "ispell-default": {
+        "__file": true,
+        "size": 0
+      }
+    },
+    "dpkg": {
+      "dpkg.cfg": {
+        "__file": true,
+        "size": 446
+      },
+      "dpkg.cfg.d": {},
+      "origins": {},
+      "shlibs.default": {
+        "__file": true,
+        "size": 260
+      },
+      "shlibs.override": {
+        "__file": true,
+        "size": 253
+      }
+    },
+    "e2scrub.conf": {
+      "__file": true,
+      "size": 685
+    },
+    "emacs": {
+      "site-start.d": {}
+    },
+    "environment": {
+      "__file": true,
+      "size": 106
+    },
+    "ethertypes": {
+      "__file": true,
+      "size": 1853
+    },
+    "fonts": {
+      "conf.avail": {},
+      "conf.d": {},
+      "fonts.conf": {
+        "__file": true,
+        "size": 2940
+      }
+    },
+    "fstab": {
+      "__file": true,
+      "size": 37
+    },
+    "fuse.conf": {
+      "__file": true,
+      "size": 711
+    },
+    "gai.conf": {
+      "__file": true,
+      "size": 2584
+    },
+    "glvnd": {
+      "egl_vendor.d": {}
+    },
+    "gnutls": {
+      "config": {
+        "__file": true,
+        "size": 119
+      }
+    },
+    "gprofng.rc": {
+      "__file": true,
+      "size": 3986
+    },
+    "group": {
+      "__file": true,
+      "size": 597
+    },
+    "group-": {
+      "__file": true,
+      "size": 582
+    },
+    "gshadow": {
+      "__file": true,
+      "size": 510
+    },
+    "gshadow-": {
+      "__file": true,
+      "size": 499
+    },
+    "gss": {
+      "mech.d": {}
+    },
+    "gtk-3.0": {
+      "im-multipress.conf": {
+        "__file": true,
+        "size": 890
+      },
+      "settings.ini": {
+        "__file": true,
+        "size": 126
+      }
+    },
+    "host.conf": {
+      "__file": true,
+      "size": 92
+    },
+    "hostname": {
+      "__file": true,
+      "size": 3
+    },
+    "hosts": {
+      "__file": true,
+      "size": 65
+    },
+    "init.d": {
+      "dbus": {
+        "__file": true,
+        "size": 3152
+      },
+      "procps": {
+        "__file": true,
+        "size": 959
+      },
+      "x11-common": {
+        "__file": true,
+        "size": 2762
+      }
+    },
+    "inputrc": {
+      "__file": true,
+      "size": 1875
+    },
+    "issue": {
+      "__file": true,
+      "size": 26
+    },
+    "issue.net": {
+      "__file": true,
+      "size": 19
+    },
+    "java": {
+      "security": {}
+    },
+    "java-21-openjdk": {
+      "accessibility.properties": {
+        "__file": true,
+        "size": 391
+      },
+      "jaxp.properties": {
+        "__file": true,
+        "size": 7302
+      },
+      "jfr": {},
+      "jvm-amd64.cfg": {
+        "__file": true,
+        "size": 54
+      },
+      "logging.properties": {
+        "__file": true,
+        "size": 2732
+      },
+      "management": {},
+      "net.properties": {
+        "__file": true,
+        "size": 7441
+      },
+      "psfont.properties.ja": {
+        "__file": true,
+        "size": 3793
+      },
+      "psfontj2d.properties": {
+        "__file": true,
+        "size": 11390
+      },
+      "security": {},
+      "sound.properties": {
+        "__file": true,
+        "size": 1210
+      },
+      "swing.properties": {
+        "__file": true,
+        "size": 113
+      }
+    },
+    "kernel": {
+      "install.d": {},
+      "postinst.d": {}
+    },
+    "ld.so.cache": {
+      "__file": true,
+      "size": 49731
+    },
+    "ld.so.conf": {
+      "__file": true,
+      "size": 34
+    },
+    "ld.so.conf.d": {
+      "libc.conf": {
+        "__file": true,
+        "size": 44
+      },
+      "x86_64-linux-gnu.conf": {
+        "__file": true,
+        "size": 100
+      }
+    },
+    "legal": {
+      "__file": true,
+      "size": 267
+    },
+    "libaudit.conf": {
+      "__file": true,
+      "size": 191
+    },
+    "libpaper.d": {
+      "texlive-base": {
+        "__file": true,
+        "size": 5919
+      }
+    },
+    "libreoffice": {
+      "psprint.conf": {
+        "__file": true,
+        "size": 3849
+      },
+      "registry": {},
+      "soffice.sh": {
+        "__file": true,
+        "size": 803
+      },
+      "sofficerc": {
+        "__file": true,
+        "size": 434
+      }
+    },
+    "locale.conf": {
+      "__file": true,
+      "size": 13
+    },
+    "localtime": {
+      "__symlink": "/usr/share/zoneinfo/Etc/UTC"
+    },
+    "logcheck": {
+      "ignore.d.server": {}
+    },
+    "login.defs": {
+      "__file": true,
+      "size": 12345
+    },
+    "logrotate.d": {
+      "alternatives": {
+        "__file": true,
+        "size": 120
+      },
+      "apt": {
+        "__file": true,
+        "size": 173
+      },
+      "dpkg": {
+        "__file": true,
+        "size": 112
+      }
+    },
+    "lsb-release": {
+      "__file": true,
+      "size": 104
+    },
+    "machine-id": {
+      "__file": true,
+      "size": 33
+    },
+    "magic": {
+      "__file": true,
+      "size": 111
+    },
+    "magic.mime": {
+      "__file": true,
+      "size": 111
+    },
+    "mime.types": {
+      "__file": true,
+      "size": 75113
+    },
+    "mke2fs.conf": {
+      "__file": true,
+      "size": 744
+    },
+    "modules-load.d": {
+      "modules.conf": {
+        "__symlink": "../modules"
+      }
+    },
+    "mtab": {
+      "__symlink": "../proc/self/mounts"
+    },
+    "networks": {
+      "__file": true,
+      "size": 91
+    },
+    "nsswitch.conf": {
+      "__file": true,
+      "size": 494
+    },
+    "openal": {
+      "alsoft.conf": {
+        "__file": true,
+        "size": 25968
+      }
+    },
+    "openni2": {
+      "OpenNI.ini": {
+        "__file": true,
+        "size": 375
+      }
+    },
+    "opt": {},
+    "os-release": {
+      "__symlink": "../usr/lib/os-release"
+    },
+    "pam.conf": {
+      "__file": true,
+      "size": 552
+    },
+    "pam.d": {
+      "chfn": {
+        "__file": true,
+        "size": 384
+      },
+      "chpasswd": {
+        "__file": true,
+        "size": 92
+      },
+      "chsh": {
+        "__file": true,
+        "size": 581
+      },
+      "common-account": {
+        "__file": true,
+        "size": 1208
+      },
+      "common-auth": {
+        "__file": true,
+        "size": 1214
+      },
+      "common-password": {
+        "__file": true,
+        "size": 1620
+      },
+      "common-session": {
+        "__file": true,
+        "size": 1427
+      },
+      "common-session-noninteractive": {
+        "__file": true,
+        "size": 1435
+      },
+      "login": {
+        "__file": true,
+        "size": 4118
+      },
+      "newusers": {
+        "__file": true,
+        "size": 92
+      },
+      "other": {
+        "__file": true,
+        "size": 520
+      },
+      "passwd": {
+        "__file": true,
+        "size": 92
+      },
+      "runuser": {
+        "__file": true,
+        "size": 143
+      },
+      "runuser-l": {
+        "__file": true,
+        "size": 138
+      },
+      "su": {
+        "__file": true,
+        "size": 2259
+      },
+      "su-l": {
+        "__file": true,
+        "size": 137
+      }
+    },
+    "papersize": {
+      "__file": true,
+      "size": 3
+    },
+    "passwd": {
+      "__file": true,
+      "size": 1111
+    },
+    "passwd-": {
+      "__file": true,
+      "size": 1069
+    },
+    "perl": {
+      "Net": {}
+    },
+    "polkit-1": {
+      "rules.d": {}
+    },
+    "profile": {
+      "__file": true,
+      "size": 582
+    },
+    "profile.d": {
+      "01-locale-fix.sh": {
+        "__file": true,
+        "size": 96
+      }
+    },
+    "protocols": {
+      "__file": true,
+      "size": 3144
+    },
+    "pulse": {
+      "client.conf": {
+        "__file": true,
+        "size": 1201
+      },
+      "client.conf.d": {}
+    },
+    "puppeteer-config.json": {
+      "__file": true,
+      "size": 116
+    },
+    "python3": {
+      "debian_config": {
+        "__file": true,
+        "size": 94
+      }
+    },
+    "python3.12": {
+      "sitecustomize.py": {
+        "__file": true,
+        "size": 155
+      }
+    },
+    "rc0.d": {},
+    "rc1.d": {},
+    "rc2.d": {
+      "S01dbus": {
+        "__symlink": "../init.d/dbus"
+      }
+    },
+    "rc3.d": {
+      "S01dbus": {
+        "__symlink": "../init.d/dbus"
+      }
+    },
+    "rc4.d": {
+      "S01dbus": {
+        "__symlink": "../init.d/dbus"
+      }
+    },
+    "rc5.d": {
+      "S01dbus": {
+        "__symlink": "../init.d/dbus"
+      }
+    },
+    "rc6.d": {},
+    "rcS.d": {
+      "S01procps": {
+        "__symlink": "../init.d/procps"
+      },
+      "S01x11-common": {
+        "__symlink": "../init.d/x11-common"
+      }
+    },
+    "resolv.conf": {
+      "__file": true,
+      "size": 19
+    },
+    "rmt": {
+      "__symlink": "/usr/sbin/rmt"
+    },
+    "rpc": {
+      "__file": true,
+      "size": 911
+    },
+    "security": {
+      "access.conf": {
+        "__file": true,
+        "size": 4564
+      },
+      "faillock.conf": {
+        "__file": true,
+        "size": 2234
+      },
+      "group.conf": {
+        "__file": true,
+        "size": 3635
+      },
+      "limits.conf": {
+        "__file": true,
+        "size": 2752
+      },
+      "limits.d": {},
+      "namespace.conf": {
+        "__file": true,
+        "size": 1637
+      },
+      "namespace.d": {},
+      "namespace.init": {
+        "__file": true,
+        "size": 1971
+      },
+      "opasswd": {
+        "__file": true,
+        "size": 0
+      },
+      "pam_env.conf": {
+        "__file": true,
+        "size": 2971
+      },
+      "pwhistory.conf": {
+        "__file": true,
+        "size": 517
+      },
+      "sepermit.conf": {
+        "__file": true,
+        "size": 418
+      },
+      "time.conf": {
+        "__file": true,
+        "size": 2179
+      }
+    },
+    "selinux": {
+      "semanage.conf": {
+        "__file": true,
+        "size": 2065
+      }
+    },
+    "sensors.d": {},
+    "sensors3.conf": {
+      "__file": true,
+      "size": 10593
+    },
+    "services": {
+      "__file": true,
+      "size": 12813
+    },
+    "sgml": {
+      "catalog": {
+        "__symlink": "/var/lib/sgml-base/supercatalog"
+      },
+      "xml-core.cat": {
+        "__file": true,
+        "size": 45
+      }
+    },
+    "shadow": {
+      "__file": true,
+      "size": 609
+    },
+    "shadow-": {
+      "__file": true,
+      "size": 581
+    },
+    "shells": {
+      "__file": true,
+      "size": 118
+    },
+    "skel": {},
+    "ssl": {
+      "certs": {},
+      "openssl.cnf": {
+        "__file": true,
+        "size": 12324
+      },
+      "private": {}
+    },
+    "subgid": {
+      "__file": true,
+      "size": 20
+    },
+    "subgid-": {
+      "__file": true,
+      "size": 0
+    },
+    "subuid": {
+      "__file": true,
+      "size": 20
+    },
+    "subuid-": {
+      "__file": true,
+      "size": 0
+    },
+    "sysctl.conf": {
+      "__file": true,
+      "size": 2209
+    },
+    "sysctl.d": {
+      "10-bufferbloat.conf": {
+        "__file": true,
+        "size": 481
+      },
+      "10-console-messages.conf": {
+        "__file": true,
+        "size": 77
+      },
+      "10-ipv6-privacy.conf": {
+        "__file": true,
+        "size": 490
+      },
+      "10-kernel-hardening.conf": {
+        "__file": true,
+        "size": 1229
+      },
+      "10-magic-sysrq.conf": {
+        "__file": true,
+        "size": 1184
+      },
+      "10-map-count.conf": {
+        "__file": true,
+        "size": 164
+      },
+      "10-network-security.conf": {
+        "__file": true,
+        "size": 158
+      },
+      "10-ptrace.conf": {
+        "__file": true,
+        "size": 1292
+      },
+      "10-zeropage.conf": {
+        "__file": true,
+        "size": 506
+      },
+      "99-sysctl.conf": {
+        "__symlink": "../sysctl.conf"
+      },
+      "README.sysctl": {
+        "__file": true,
+        "size": 798
+      }
+    },
+    "systemd": {
+      "journald.conf": {
+        "__file": true,
+        "size": 1406
+      },
+      "logind.conf": {
+        "__file": true,
+        "size": 1663
+      },
+      "network": {},
+      "networkd.conf": {
+        "__file": true,
+        "size": 1083
+      },
+      "pstore.conf": {
+        "__file": true,
+        "size": 879
+      },
+      "sleep.conf": {
+        "__file": true,
+        "size": 1060
+      },
+      "system": {},
+      "system-generators": {},
+      "system.conf": {
+        "__file": true,
+        "size": 2318
+      },
+      "user": {},
+      "user.conf": {
+        "__file": true,
+        "size": 1768
+      }
+    },
+    "terminfo": {
+      "README": {
+        "__file": true,
+        "size": 212
+      }
+    },
+    "texmf": {
+      "dvipdfmx": {},
+      "dvips": {},
+      "tex": {},
+      "texdoctk": {},
+      "texmf.d": {},
+      "web2c": {}
+    },
+    "timezone": {
+      "__file": true,
+      "size": 8
+    },
+    "timidity": {
+      "timgm6mb.cfg": {
+        "__file": true,
+        "size": 229433
+      }
+    },
+    "tmpfiles.d": {},
+    "ucf.conf": {
+      "__file": true,
+      "size": 1260
+    },
+    "update-motd.d": {
+      "00-header": {
+        "__file": true,
+        "size": 1220
+      },
+      "10-help-text": {
+        "__file": true,
+        "size": 1151
+      },
+      "50-motd-news": {
+        "__file": true,
+        "size": 5023
+      },
+      "60-unminimize": {
+        "__file": true,
+        "size": 356
+      }
+    },
+    "vconsole.conf": {
+      "__symlink": "default/keyboard"
+    },
+    "vdpau_wrapper.cfg": {
+      "__file": true,
+      "size": 51
+    },
+    "vulkan": {
+      "explicit_layer.d": {},
+      "icd.d": {},
+      "implicit_layer.d": {}
+    },
+    "wgetrc": {
+      "__file": true,
+      "size": 4942
+    },
+    "xattr.conf": {
+      "__file": true,
+      "size": 681
+    },
+    "xdg": {
+      "systemd": {}
+    },
+    "xml": {
+      "catalog": {
+        "__file": true,
+        "size": 1039
+      },
+      "catalog.old": {
+        "__file": true,
+        "size": 893
+      },
+      "polkitd.xml": {
+        "__file": true,
+        "size": 526
+      },
+      "polkitd.xml.old": {
+        "__file": true,
+        "size": 365
+      },
+      "xml-core.xml": {
+        "__file": true,
+        "size": 840
+      },
+      "xml-core.xml.old": {
+        "__file": true,
+        "size": 673
+      }
+    }
+  },
+  "tmp": {
+    "embed.json": {
+      "__file": true,
+      "size": 599
+    },
+    "filesdata.json": {
+      "__file": true,
+      "size": 916
+    },
+    "fuse.log": {
+      "__file": true,
+      "size": 0
+    },
+    "fuse2.log": {
+      "__file": true,
+      "size": 0
+    },
+    "fuse3.log": {
+      "__file": true,
+      "size": 0
+    },
+    "hsperfdata_root": {},
+    "lfs_clock.png": {
+      "__file": true,
+      "size": 3170
+    },
+    "lfs_clock.ppm": {
+      "__file": true,
+      "size": 388815
+    },
+    "live": {},
+    "livefs3.log": {
+      "__file": true,
+      "size": 0
+    },
+    "livefs4.log": {
+      "__file": true,
+      "size": 0
+    },
+    "node-compile-cache": {
+      "v22.22.2-x64-9de703df-0": {}
+    },
+    "phantomjs": {
+      "phantomjs-2.1.1-linux-x86_64.tar.bz2": {
+        "__file": true,
+        "size": 23415665
+      },
+      "phantomjs-2.1.1-linux-x86_64.tar.bz2-extract-1776535970620": {}
+    },
+    "rclone-mount-config.json": {
+      "__file": true,
+      "size": 1612
+    },
+    "rclone-mounts": {
+      "claude_chat_01Dg8g8LR4d2j6LreW6M1a3N_mnt_transcripts": {},
+      "claude_chat_01Dg8g8LR4d2j6LreW6M1a3N_mnt_user-data_outputs": {},
+      "claude_chat_01Dg8g8LR4d2j6LreW6M1a3N_mnt_user-data_tool_results": {},
+      "claude_chat_01Dg8g8LR4d2j6LreW6M1a3N_mnt_user-data_uploads": {},
+      "ready": {
+        "__file": true,
+        "size": 0
+      }
+    },
+    "shellfs.log": {
+      "__file": true,
+      "size": 0
+    },
+    "shellfs2.log": {
+      "__file": true,
+      "size": 0
+    },
+    "shellfs3.log": {
+      "__file": true,
+      "size": 0
+    },
+    "uv-ce9cd633bb00c47d.lock": {
+      "__file": true,
+      "size": 0
+    },
+    "uv-setuptools-25a17d8eca85a703.lock": {
+      "__file": true,
+      "size": 0
+    },
+    "uv-setuptools-485db6d65da711db.lock": {
+      "__file": true,
+      "size": 0
+    },
+    "uv-setuptools-f4b63408ed8c7c10.lock": {
+      "__file": true,
+      "size": 0
+    }
+  },
+  "mnt": {
+    "skills": {
+      "examples": {
+        "algorithmic-art": {},
+        "algorithmic-art.skill": {
+          "__file": true,
+          "size": 19286
+        },
+        "benepass-reimbursement": {},
+        "benepass-reimbursement.skill": {
+          "__file": true,
+          "size": 6806
+        },
+        "brand-guidelines": {},
+        "brand-guidelines.skill": {
+          "__file": true,
+          "size": 5280
+        },
+        "call-to-book": {},
+        "call-to-book.skill": {
+          "__file": true,
+          "size": 6128
+        },
+        "cancel-unsubscribe": {},
+        "cancel-unsubscribe.skill": {
+          "__file": true,
+          "size": 6851
+        },
+        "canvas-design": {},
+        "canvas-design.skill": {
+          "__file": true,
+          "size": 2649107
+        },
+        "doc-coauthoring": {},
+        "doc-coauthoring.skill": {
+          "__file": true,
+          "size": 5904
+        },
+        "event-planning": {},
+        "event-planning.skill": {
+          "__file": true,
+          "size": 6354
+        },
+        "file-expenses": {},
+        "file-expenses.skill": {
+          "__file": true,
+          "size": 5777
+        },
+        "file-form": {},
+        "file-form.skill": {
+          "__file": true,
+          "size": 5922
+        },
+        "financial-calculator": {},
+        "financial-calculator.skill": {
+          "__file": true,
+          "size": 6304
+        },
+        "grocery-shopping": {},
+        "grocery-shopping.skill": {
+          "__file": true,
+          "size": 5634
+        },
+        "hire-help": {},
+        "hire-help.skill": {
+          "__file": true,
+          "size": 5993
+        },
+        "internal-comms": {},
+        "internal-comms.skill": {
+          "__file": true,
+          "size": 10042
+        },
+        "learn": {},
+        "learn.skill": {
+          "__file": true,
+          "size": 9947
+        },
+        "mcp-builder": {},
+        "mcp-builder.skill": {
+          "__file": true,
+          "size": 42387
+        },
+        "meal-delivery": {},
+        "meal-delivery.skill": {
+          "__file": true,
+          "size": 5578
+        },
+        "prescription-refill": {},
+        "prescription-refill.skill": {
+          "__file": true,
+          "size": 6938
+        },
+        "return-refund": {},
+        "return-refund.skill": {
+          "__file": true,
+          "size": 5957
+        },
+        "setup-writing-style": {},
+        "setup-writing-style.skill": {
+          "__file": true,
+          "size": 19023
+        },
+        "skill-creator": {},
+        "skill-creator.skill": {
+          "__file": true,
+          "size": 73752
+        },
+        "slack-gif-creator": {},
+        "slack-gif-creator.skill": {
+          "__file": true,
+          "size": 15849
+        },
+        "theme-factory": {},
+        "theme-factory.skill": {
+          "__file": true,
+          "size": 123406
+        },
+        "web-artifacts-builder": {},
+        "web-artifacts-builder.skill": {
+          "__file": true,
+          "size": 30209
+        }
+      },
+      "public": {
+        "docx": {},
+        "docx.skill": {
+          "__file": true,
+          "size": 159010
+        },
+        "file-reading": {},
+        "file-reading.skill": {
+          "__file": true,
+          "size": 6122
+        },
+        "frontend-design": {},
+        "frontend-design.skill": {
+          "__file": true,
+          "size": 7630
+        },
+        "pdf": {},
+        "pdf-reading": {},
+        "pdf-reading.skill": {
+          "__file": true,
+          "size": 7997
+        },
+        "pdf.skill": {
+          "__file": true,
+          "size": 21600
+        },
+        "pptx": {},
+        "pptx.skill": {
+          "__file": true,
+          "size": 167135
+        },
+        "product-self-knowledge": {},
+        "product-self-knowledge.skill": {
+          "__file": true,
+          "size": 1319
+        },
+        "xlsx": {},
+        "xlsx.skill": {
+          "__file": true,
+          "size": 151036
+        }
+      },
+      "user": {
+        "python-to-desmos": {},
+        "video-analyzer": {}
+      }
+    },
+    "transcripts": {},
+    "user-data": {
+      "outputs": {
+        "0": {
+          "__file": true,
+          "size": 69
+        },
+        "0.txt": {
+          "__file": true,
+          "size": 69
+        },
+        "1": {
+          "__file": true,
+          "size": 70
+        },
+        "1.txt": {
+          "__file": true,
+          "size": 70
+        },
+        "2": {
+          "__file": true,
+          "size": 71
+        },
+        "2.txt": {
+          "__file": true,
+          "size": 71
+        },
+        "3": {
+          "__file": true,
+          "size": 72
+        },
+        "3.txt": {
+          "__file": true,
+          "size": 72
+        },
+        "4": {
+          "__file": true,
+          "size": 73
+        },
+        "4.txt": {
+          "__file": true,
+          "size": 73
+        },
+        "5": {
+          "__file": true,
+          "size": 74
+        },
+        "5.txt": {
+          "__file": true,
+          "size": 74
+        },
+        "6": {
+          "__file": true,
+          "size": 75
+        },
+        "6.txt": {
+          "__file": true,
+          "size": 75
+        },
+        "7": {
+          "__file": true,
+          "size": 76
+        },
+        "7.txt": {
+          "__file": true,
+          "size": 76
+        },
+        "8": {
+          "__file": true,
+          "size": 77
+        },
+        "8.txt": {
+          "__file": true,
+          "size": 77
+        },
+        "9": {
+          "__file": true,
+          "size": 78
+        },
+        "9.txt": {
+          "__file": true,
+          "size": 78
+        },
+        "README.txt": {
+          "__file": true,
+          "size": 705
+        },
+        "a": {
+          "__file": true,
+          "size": 42
+        },
+        "a.txt": {
+          "__file": true,
+          "size": 42
+        },
+        "all_bytes.bin": {
+          "__file": true,
+          "size": 256
+        },
+        "b": {
+          "__file": true,
+          "size": 43
+        },
+        "b.txt": {
+          "__file": true,
+          "size": 43
+        },
+        "backspace": {
+          "__file": true,
+          "size": 25
+        },
+        "backspace.txt": {
+          "__file": true,
+          "size": 25
+        },
+        "c": {
+          "__file": true,
+          "size": 44
+        },
+        "c.txt": {
+          "__file": true,
+          "size": 44
+        },
+        "clear": {
+          "__file": true,
+          "size": 24
+        },
+        "clear.txt": {
+          "__file": true,
+          "size": 24
+        },
+        "clock_now.png": {
+          "__file": true,
+          "size": 3131
+        },
+        "cmd_df.txt": {
+          "__file": true,
+          "size": 968
+        },
+        "cmd_uname.txt": {
+          "__file": true,
+          "size": 73
+        },
+        "cmd_whoami.txt": {
+          "__file": true,
+          "size": 5
+        },
+        "d": {
+          "__file": true,
+          "size": 45
+        },
+        "d.txt": {
+          "__file": true,
+          "size": 45
+        },
+        "dash": {
+          "__file": true,
+          "size": 83
+        },
+        "dash.txt": {
+          "__file": true,
+          "size": 83
+        },
+        "dot": {
+          "__file": true,
+          "size": 84
+        },
+        "dot.txt": {
+          "__file": true,
+          "size": 84
+        },
+        "e": {
+          "__file": true,
+          "size": 46
+        },
+        "e.txt": {
+          "__file": true,
+          "size": 46
+        },
+        "f": {
+          "__file": true,
+          "size": 47
+        },
+        "f.txt": {
+          "__file": true,
+          "size": 47
+        },
+        "filetree.json": {
+          "__file": true,
+          "size": 9098010
+        },
+        "g": {
+          "__file": true,
+          "size": 48
+        },
+        "g.txt": {
+          "__file": true,
+          "size": 48
+        },
+        "h": {
+          "__file": true,
+          "size": 49
+        },
+        "h.txt": {
+          "__file": true,
+          "size": 49
+        },
+        "i": {
+          "__file": true,
+          "size": 50
+        },
+        "i.txt": {
+          "__file": true,
+          "size": 50
+        },
+        "index.html": {
+          "__file": true,
+          "size": 27539
+        },
+        "j": {
+          "__file": true,
+          "size": 52
+        },
+        "j.txt": {
+          "__file": true,
+          "size": 52
+        },
+        "k": {
+          "__file": true,
+          "size": 53
+        },
+        "k.txt": {
+          "__file": true,
+          "size": 53
+        },
+        "l": {
+          "__file": true,
+          "size": 54
+        },
+        "l.txt": {
+          "__file": true,
+          "size": 54
+        },
+        "live": {},
+        "log.txt": {
+          "__file": true,
+          "size": 718
+        },
+        "m": {
+          "__file": true,
+          "size": 55
+        },
+        "m.txt": {
+          "__file": true,
+          "size": 55
+        },
+        "n": {
+          "__file": true,
+          "size": 56
+        },
+        "n.txt": {
+          "__file": true,
+          "size": 56
+        },
+        "o": {
+          "__file": true,
+          "size": 57
+        },
+        "o.txt": {
+          "__file": true,
+          "size": 57
+        },
+        "output": {
+          "__file": true,
+          "size": 16
+        },
+        "output.txt": {
+          "__file": true,
+          "size": 16
+        },
+        "p": {
+          "__file": true,
+          "size": 58
+        },
+        "p.txt": {
+          "__file": true,
+          "size": 58
+        },
+        "pi_server.py": {
+          "__file": true,
+          "size": 10887
+        },
+        "q": {
+          "__file": true,
+          "size": 59
+        },
+        "q.txt": {
+          "__file": true,
+          "size": 59
+        },
+        "r": {
+          "__file": true,
+          "size": 60
+        },
+        "r.txt": {
+          "__file": true,
+          "size": 60
+        },
+        "run": {
+          "__file": true,
+          "size": 120
+        },
+        "run.df+-h.txt": {
+          "__file": true,
+          "size": 968
+        },
+        "run.dir.txt": {
+          "__file": true,
+          "size": 227
+        },
+        "run.free+-h.txt": {
+          "__file": true,
+          "size": 207
+        },
+        "run.ls+-la.txt": {
+          "__file": true,
+          "size": 1537
+        },
+        "run.ps+aux.txt": {
+          "__file": true,
+          "size": 5349
+        },
+        "run.txt": {
+          "__file": true,
+          "size": 113
+        },
+        "run.uname+-a.txt": {
+          "__file": true,
+          "size": 73
+        },
+        "run.whoami.txt": {
+          "__file": true,
+          "size": 5
+        },
+        "s": {
+          "__file": true,
+          "size": 61
+        },
+        "s.txt": {
+          "__file": true,
+          "size": 61
+        },
+        "self_now.txt": {
+          "__file": true,
+          "size": 523
+        },
+        "slash": {
+          "__file": true,
+          "size": 85
+        },
+        "slash.txt": {
+          "__file": true,
+          "size": 85
+        },
+        "space": {
+          "__file": true,
+          "size": 83
+        },
+        "space.txt": {
+          "__file": true,
+          "size": 83
+        },
+        "stats_now.txt": {
+          "__file": true,
+          "size": 189
+        },
+        "status": {
+          "__file": true,
+          "size": 122
+        },
+        "status.txt": {
+          "__file": true,
+          "size": 123
+        },
+        "t": {
+          "__file": true,
+          "size": 62
+        },
+        "t.txt": {
+          "__file": true,
+          "size": 62
+        },
+        "time_now.txt": {
+          "__file": true,
+          "size": 53
+        },
+        "u": {
+          "__file": true,
+          "size": 63
+        },
+        "u.txt": {
+          "__file": true,
+          "size": 63
+        },
+        "under.txt": {
+          "__file": true,
+          "size": 87
+        },
+        "v": {
+          "__file": true,
+          "size": 64
+        },
+        "v.txt": {
+          "__file": true,
+          "size": 64
+        },
+        "w": {
+          "__file": true,
+          "size": 65
+        },
+        "w.txt": {
+          "__file": true,
+          "size": 65
+        },
+        "x": {
+          "__file": true,
+          "size": 66
+        },
+        "x.txt": {
+          "__file": true,
+          "size": 66
+        },
+        "y": {
+          "__file": true,
+          "size": 67
+        },
+        "y.txt": {
+          "__file": true,
+          "size": 67
+        },
+        "z": {
+          "__file": true,
+          "size": 68
+        },
+        "z.txt": {
+          "__file": true,
+          "size": 68
+        },
+        "zip_1_etc.zip": {
+          "__file": true,
+          "size": 66580980
+        },
+        "zip_2_home.zip": {
+          "__file": true,
+          "size": 24378800
+        },
+        "zip_3_skills.zip": {
+          "__file": true,
+          "size": 7197862
+        },
+        "zip_4_outputs.zip": {
+          "__file": true,
+          "size": 1190691
+        },
+        "zip_5_opt.zip": {
+          "__file": true,
+          "size": 149273537
+        },
+        "zip_6_var.zip": {
+          "__file": true,
+          "size": 224281164
+        },
+        "zip_7_misc.zip": {
+          "__file": true,
+          "size": 24196713
+        }
+      },
+      "tool_results": {},
+      "uploads": {}
+    }
+  },
+  "opt": {
+    "google": {
+      "chrome": {}
+    },
+    "pw-browsers": {
+      "chromium-1194": {},
+      "chromium_headless_shell-1194": {},
+      "ffmpeg-1011": {}
+    },
+    "rclone": {
+      "rclone-filestore": {
+        "__file": true,
+        "size": 30186712
+      }
+    }
+  },
+  "root": {
+    ".bashrc": {
+      "__file": true,
+      "size": 3106
+    },
+    ".config": {
+      "pip": {},
+      "uv": {}
+    },
+    ".profile": {
+      "__file": true,
+      "size": 161
+    },
+    ".ssh": {}
+  }
+}
