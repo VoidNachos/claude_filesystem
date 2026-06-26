@@ -377,7 +377,38 @@ function showSettings(){document.getElementById("s-pi").value=PI_URL;document.ge
 
 // INIT
 async function init(){if(!PI_URL||!REPO){document.getElementById("setup").classList.add("show");return}await refreshAll();setInterval(pollPi,3000)}
-async function refreshAll(){setPi("busy","Loading...");try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/filetree.json?t=${Date.now()}`);if(!r.ok)throw new Error("filetree.json not found");snap=await r.json();navigate(curPath,false);setPi("ready")}catch(e){setPi("error",e.message);toast(e.message)}}
+async function refreshAll(){
+  setPi("busy","Loading...");
+  try {
+    // Use GitHub API to bypass CDN cache, fall back to raw if PI_URL not set
+    let snap_data;
+    try {
+      // Fetch blob SHA first, then fetch blob content — always fresh
+      const treeR = await fetch(
+        `https://api.github.com/repos/${REPO}/git/trees/${BRANCH}`,
+        {headers: {"Cache-Control": "no-cache"}}
+      );
+      const tree = await treeR.json();
+      const ftItem = tree.tree && tree.tree.find(f => f.path === "filetree.json");
+      if (ftItem && ftItem.url) {
+        const blobR = await fetch(ftItem.url, {headers:{"Cache-Control":"no-cache"}});
+        const blob  = await blobR.json();
+        snap_data = JSON.parse(atob(blob.content.replace(/\n/g,"")));
+      } else throw new Error("filetree.json not in tree");
+    } catch {
+      // Fallback to raw URL
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/filetree.json?t=${Date.now()}`);
+      if (!r.ok) throw new Error("filetree.json not found");
+      snap_data = await r.json();
+    }
+    snap = snap_data;
+    navigate(curPath, false);
+    setPi("ready");
+  } catch(e) {
+    setPi("error", e.message);
+    toast(e.message);
+  }
+}
 let piLocked = false;
 
 async function pollPi(){
