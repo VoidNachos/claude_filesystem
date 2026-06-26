@@ -231,7 +231,7 @@ body{font-family:var(--font);font-size:12px;background:var(--bg);color:var(--tex
   <div id="sbox">
     <h2>🗂 File Explorer — Claude</h2>
     <p>Enter the Pi bridge server URL to connect.</p>
-    <label>Pi Server URL</label><input id="s-pi" type="url" placeholder="https://abc.ngrok-free.app">
+    <label>Pi Server URL</label><input id="s-pi" type="url" placeholder="https://abc.ngrok-free.app" value="https://e3cd-2600-6c5a-18f0-ba50-00-15f9.ngrok-free.app">
     <div style="margin-top:16px;display:flex;justify-content:flex-end;gap:8px">
       <button class="mbtn" onclick="document.getElementById('setup').classList.remove('show')">Cancel</button>
       <button class="mbtn p" onclick="saveSetup()">Connect</button>
@@ -364,7 +364,7 @@ body{font-family:var(--font);font-size:12px;background:var(--bg);color:var(--tex
 <input type="file" id="finput" style="display:none" multiple onchange="handleFiles(this.files)">
 
 <script>
-let PI_URL = localStorage.getItem("pi_url")||"";
+let PI_URL = localStorage.getItem("pi_url")||"https://e3cd-2600-6c5a-18f0-ba50-00-15f9.ngrok-free.app";
 const REPO = "VoidNachos/claude_filesystem";
 const BRANCH="main";
 let snap=null, curPath="/home/claude", hist=[], hIdx=-1;
