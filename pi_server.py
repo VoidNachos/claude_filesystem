@@ -1,326 +1,265 @@
 #!/usr/bin/env python3
 """
-Pi Bridge Server
-Receives file operations from GitHub Pages, automates Claude.ai via Playwright,
-and handles file uploads by attaching them to the Claude chat.
-
-Setup:
-  pip install flask flask-cors playwright
-  playwright install chromium
-  python pi_server.py
-
-Then expose with ngrok:
-  ngrok http 5001
+Pi Bridge Server v3
+- Async queue: one operation at a time, waits for FILEOP_DONE before next
+- No file picker: uploads sent as text/base64 in the prompt
 """
 
-import asyncio
-import base64
-import json
-import os
-import tempfile
-import threading
-import time
-from pathlib import Path
-
+import asyncio, base64, json, os, threading, time
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from playwright.async_api import async_playwright
 
-# ── CONFIG ────────────────────────────────────────────────────────────
-CLAUDE_URL   = "https://claude.ai"
-CHAT_URL     = "https://claude.ai/chat"   # or specific chat URL
-SERVER_PORT  = 5001
-UPLOAD_DIR   = tempfile.mkdtemp(prefix="claude_bridge_")
+CLAUDE_URL      = "https://claude.ai"
+PINNED_CHAT_URL = None   # e.g. "https://claude.ai/chat/YOUR_CHAT_ID"
+SERVER_PORT     = 5001
+MAX_INLINE_SIZE = 500_000
 
-# Paste your specific Claude chat URL here to always resume the same conversation
-# Leave as None to use the most recent chat
-PINNED_CHAT_URL = None  # e.g. "https://claude.ai/chat/abc123"
+app  = Flask(__name__)
+CORS(app)
 
-# ── FLASK APP ─────────────────────────────────────────────────────────
-app = Flask(__name__)
-CORS(app)  # allow requests from GitHub Pages
-
-# shared state
 state = {
-    "browser":  None,
-    "page":     None,
-    "ready":    False,
-    "busy":     False,
-    "last_op":  None,
-    "loop":     None,
+    "pw": None, "browser": None, "page": None,
+    "ready": False, "loop": None,
+    "current_op": None,   # description of what's running now
+    "queue_depth": 0,     # how many ops are waiting
 }
 
-# ── PLAYWRIGHT HELPERS ────────────────────────────────────────────────
+op_queue = None   # asyncio.Queue, created inside the event loop
+
+# ── PLAYWRIGHT ────────────────────────────────────────────────────────
 
 async def get_page():
-    """Return the Claude.ai page, launching browser if needed."""
     if state["page"] and not state["page"].is_closed():
         return state["page"]
-
-    pw = await async_playwright().start()
-    browser = await pw.chromium.launch(
-        headless=False,           # visible so you can log in manually
-        args=["--start-maximized"]
-    )
-    context = await browser.new_context(
+    pw      = await async_playwright().start()
+    browser = await pw.chromium.launch(headless=False, args=["--start-maximized"])
+    ctx     = await browser.new_context(
         viewport={"width": 1280, "height": 900},
-        # Reuse stored login session if it exists
         storage_state="claude_session.json" if os.path.exists("claude_session.json") else None
     )
-    page = await context.new_page()
-
-    url = PINNED_CHAT_URL or CHAT_URL
+    page = await ctx.new_page()
+    url  = PINNED_CHAT_URL or CLAUDE_URL
+    print(f"Opening {url}...")
     await page.goto(url)
-
-    # Wait for the chat input to appear (means we're logged in and loaded)
     try:
-        await page.wait_for_selector('[data-testid="chat-input"], .ProseMirror, [contenteditable="true"]',
-                                     timeout=30000)
-        print("✓ Claude.ai loaded")
-    except Exception:
-        print("⚠ Couldn't find input — may need to log in manually")
-
-    # Save session for next time
-    await context.storage_state(path="claude_session.json")
-
-    state["browser"] = browser
-    state["page"]    = page
-    state["ready"]   = True
+        await page.wait_for_selector(
+            '[data-testid="chat-input"], .ProseMirror, [contenteditable="true"]',
+            timeout=30000)
+        print("✓ Claude.ai ready")
+    except:
+        print("⚠ Log in manually then the server will continue")
+    await ctx.storage_state(path="claude_session.json")
+    state["pw"] = pw; state["browser"] = browser
+    state["page"] = page; state["ready"] = True
     return page
 
-
 async def find_input(page):
-    """Find the Claude chat input box."""
-    selectors = [
-        '[data-testid="chat-input"]',
-        '.ProseMirror',
-        '[contenteditable="true"]',
-        'textarea',
-    ]
-    for sel in selectors:
+    for sel in ['[data-testid="chat-input"]', '.ProseMirror', '[contenteditable="true"]', 'textarea']:
         el = await page.query_selector(sel)
-        if el:
-            return el
+        if el: return el
     return None
 
-
-async def wait_for_response_complete(page, timeout=120):
-    """Wait until Claude stops generating (send button re-appears as enabled)."""
+async def wait_for_done(page, timeout=180):
+    """Wait until Claude's response contains FILEOP_DONE or FILEOP_ERROR."""
     start = time.time()
-    # Wait for the stop button to disappear (means generation ended)
+    await asyncio.sleep(2)   # let generation start
     while time.time() - start < timeout:
-        # Check if there's a stop/generating indicator
-        stop_btn = await page.query_selector('[aria-label="Stop"], [data-testid="stop-button"]')
-        if not stop_btn:
-            await asyncio.sleep(1)
-            # Double-check it's really done
-            stop_btn2 = await page.query_selector('[aria-label="Stop"], [data-testid="stop-button"]')
-            if not stop_btn2:
-                return True
+        # Check if last assistant message contains our signal
+        result = await page.evaluate("""() => {
+            const sels = [
+                '[data-testid="assistant-message"]',
+                '.font-claude-message',
+                '[class*="assistant"]',
+            ];
+            for (const sel of sels) {
+                const els = document.querySelectorAll(sel);
+                if (els.length) {
+                    const last = els[els.length - 1];
+                    const t = last.textContent || '';
+                    if (t.includes('FILEOP_DONE'))  return 'done';
+                    if (t.includes('FILEOP_ERROR')) return 'error';
+                }
+            }
+            // Fallback: check if stop button is gone
+            const stop = document.querySelector('[aria-label="Stop"], [data-testid="stop-button"]');
+            return stop ? 'generating' : 'idle';
+        }""")
+        if result in ('done', 'error'):
+            print(f"  Claude signalled: {result}")
+            return result == 'done'
+        if result == 'idle':
+            # No stop button and no signal — wait a moment to be sure
+            await asyncio.sleep(1.5)
+            result2 = await page.evaluate("""() => {
+                const sels = ['[data-testid="assistant-message"]', '.font-claude-message', '[class*="assistant"]'];
+                for (const sel of sels) {
+                    const els = document.querySelectorAll(sel);
+                    if (els.length) {
+                        const t = els[els.length-1].textContent || '';
+                        if (t.includes('FILEOP_DONE'))  return 'done';
+                        if (t.includes('FILEOP_ERROR')) return 'error';
+                    }
+                }
+                return 'idle';
+            }""")
+            if result2 in ('done', 'error'): return result2 == 'done'
+            # Generation ended but no signal — assume done
+            return True
         await asyncio.sleep(0.5)
+    print("  ⚠ Timeout waiting for FILEOP_DONE")
     return False
 
-
-async def type_command(page, prompt: str, attachment_path: str = None):
-    """Type a command into Claude and submit it, optionally with a file attached."""
-    # Click somewhere to make sure we're focused
-    await page.mouse.click(640, 450)
-    await asyncio.sleep(0.3)
-
-    # Find input
+async def send_prompt(page, prompt: str):
     inp = await find_input(page)
-    if not inp:
-        raise RuntimeError("Could not find Claude input")
-
-    # Attach file first if needed
-    if attachment_path:
-        # Click the file attachment button (paperclip)
-        attach_btn = await page.query_selector(
-            '[aria-label="Attach files"], [data-testid="attach-button"], button[aria-label*="file"], button[aria-label*="attach"]'
-        )
-        if attach_btn:
-            async with page.expect_file_chooser() as fc_info:
-                await attach_btn.click()
-            file_chooser = await fc_info.value
-            await file_chooser.set_files(attachment_path)
-            await asyncio.sleep(1)
-        else:
-            # Try drag-and-drop approach
-            print("⚠ No attach button found, trying clipboard method")
-
-    # Click the input and type
+    if not inp: raise RuntimeError("Could not find Claude input")
     await inp.click()
     await asyncio.sleep(0.2)
-
-    # Clear any existing text
-    await page.keyboard.press("Control+a")
-    await page.keyboard.press("Delete")
-
-    # Type the prompt (use clipboard for speed and reliability)
-    await page.evaluate(f"""
+    await page.evaluate("""(text) => {
         const el = document.activeElement;
-        const text = {json.dumps(prompt)};
-        if (el.isContentEditable) {{
+        if (el.isContentEditable) {
             el.innerText = text;
-            el.dispatchEvent(new Event('input', {{bubbles: true}}));
-        }} else {{
+            el.dispatchEvent(new InputEvent('input', {bubbles: true}));
+        } else {
             el.value = text;
-            el.dispatchEvent(new Event('input', {{bubbles: true}}));
-        }}
-    """)
+            el.dispatchEvent(new Event('input', {bubbles: true}));
+        }
+    }""", prompt)
     await asyncio.sleep(0.3)
-
-    # Submit
     await page.keyboard.press("Enter")
-    print(f"✓ Sent command ({len(prompt)} chars)")
+    print(f"  ✓ Sent ({len(prompt):,} chars)")
 
+# ── PROMPT BUILDERS ───────────────────────────────────────────────────
 
-async def run_operation(op_type: str, payload: dict):
-    """Execute a file operation by automating Claude."""
-    page = await get_page()
-
+def build_prompt(op_type, payload):
     if op_type == "edit":
-        path    = payload["path"]
-        content = payload["content"]
-        prompt  = f"""FILEOP:EDIT:{path}
-<<<CONTENT>>>
-{content}
-<<<END>>>"""
-
+        return f"FILEOP:EDIT:{payload['path']}\n<<<CONTENT>>>\n{payload['content']}\n<<<END>>>"
     elif op_type == "delete":
-        path   = payload["path"]
-        prompt = f"FILEOP:DELETE:{path}"
-
+        return f"FILEOP:DELETE:{payload['path']}"
     elif op_type == "rename":
-        prompt = f"FILEOP:RENAME:{payload['old_path']}:{payload['new_path']}"
-
+        return f"FILEOP:RENAME:{payload['old_path']}:{payload['new_path']}"
     elif op_type == "mkdir":
-        prompt = f"FILEOP:MKDIR:{payload['path']}"
-
-    elif op_type == "refresh":
-        prompt = "FILEOP:REFRESH"
-
+        return f"FILEOP:MKDIR:{payload['path']}"
     elif op_type == "upload":
-        dest   = payload["dest_path"]
-        prompt = f"FILEOP:UPLOAD:{dest}"
-        # attachment_path set below
-
+        enc = payload.get("encoding", "text")
+        op  = "WRITE_B64" if enc == "base64" else "EDIT"
+        return f"FILEOP:{op}:{payload['dest_path']}\n<<<CONTENT>>>\n{payload['content']}\n<<<END>>>"
+    elif op_type == "refresh":
+        return "FILEOP:REFRESH"
     else:
         raise ValueError(f"Unknown op: {op_type}")
 
-    attachment = payload.get("_attachment_path")
-    await type_command(page, prompt, attachment)
-    await wait_for_response_complete(page)
-    print(f"✓ Operation complete: {op_type}")
+# ── QUEUE WORKER ──────────────────────────────────────────────────────
 
+async def queue_worker():
+    global op_queue
+    op_queue = asyncio.Queue()
+    print("✓ Queue worker started")
+    while True:
+        item = await op_queue.get()
+        op_type = item["type"]
+        payload = item["payload"]
+        desc    = item.get("desc", op_type)
 
-# ── BACKGROUND THREAD ─────────────────────────────────────────────────
+        state["current_op"]  = desc
+        state["queue_depth"] = op_queue.qsize()
 
-def run_async(coro):
-    """Run a coroutine in the background event loop."""
-    future = asyncio.run_coroutine_threadsafe(coro, state["loop"])
-    return future.result(timeout=180)
+        print(f"\n→ Running: {desc}")
+        try:
+            page   = await get_page()
+            prompt = build_prompt(op_type, payload)
+            await send_prompt(page, prompt)
+            ok = await wait_for_done(page)
+            print(f"  {'✓ done' if ok else '✗ error'}: {desc}")
+        except Exception as e:
+            print(f"  ✗ Exception: {e}")
+        finally:
+            state["current_op"]  = None
+            state["queue_depth"] = op_queue.qsize()
+            op_queue.task_done()
 
-
-def start_event_loop():
-    loop = asyncio.new_event_loop()
-    state["loop"] = loop
-    asyncio.set_event_loop(loop)
-    # Pre-launch the browser
-    loop.run_until_complete(get_page())
-    loop.run_forever()
-
+def enqueue(op_type, payload, desc=None):
+    """Thread-safe: add operation to the async queue."""
+    if op_queue is None:
+        raise RuntimeError("Queue not ready")
+    desc = desc or f"{op_type} {payload.get('path', payload.get('dest_path', payload.get('old_path', '')))}"
+    asyncio.run_coroutine_threadsafe(
+        op_queue.put({"type": op_type, "payload": payload, "desc": desc}),
+        state["loop"]
+    )
+    state["queue_depth"] = (state["queue_depth"] or 0) + 1
 
 # ── FLASK ROUTES ──────────────────────────────────────────────────────
 
 @app.route("/api/status")
 def status():
     return jsonify({
-        "ready": state["ready"],
-        "busy":  state["busy"],
-        "last_op": state["last_op"],
+        "ready":       state["ready"],
+        "busy":        state["current_op"] is not None,
+        "current_op":  state["current_op"],
+        "queue_depth": state["queue_depth"],
     })
-
 
 @app.route("/api/operation", methods=["POST"])
 def operation():
-    if state["busy"]:
-        return jsonify({"error": "busy"}), 429
-
-    data    = request.json
+    if not state["ready"]:
+        return jsonify({"error": "not ready"}), 503
+    data    = request.json or {}
     op_type = data.get("type")
     payload = data.get("payload", {})
-
-    state["busy"]    = True
-    state["last_op"] = f"{op_type} {payload.get('path', payload.get('old_path',''))}"
-
+    desc    = data.get("desc")
     try:
-        run_async(run_operation(op_type, payload))
-        return jsonify({"ok": True})
+        enqueue(op_type, payload, desc)
+        return jsonify({"ok": True, "queued": state["queue_depth"]})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    finally:
-        state["busy"] = False
-
 
 @app.route("/api/upload", methods=["POST"])
 def upload():
-    """Receive a file from GitHub Pages, save it, then send to Claude with attachment."""
-    if state["busy"]:
-        return jsonify({"error": "busy"}), 429
-
-    dest_path = request.form.get("dest_path", "/tmp/uploaded_file")
+    if not state["ready"]:
+        return jsonify({"error": "not ready"}), 503
+    dest_path = request.form.get("dest_path", "/tmp/upload")
     file      = request.files.get("file")
-
     if not file:
         return jsonify({"error": "no file"}), 400
-
-    # Save to temp location on Pi
-    suffix   = Path(file.filename).suffix
-    tmp_path = os.path.join(UPLOAD_DIR, f"upload_{int(time.time())}{suffix}")
-    file.save(tmp_path)
-    print(f"✓ Saved upload: {tmp_path} → {dest_path}")
-
-    state["busy"]    = True
-    state["last_op"] = f"upload → {dest_path}"
-
-    payload = {"dest_path": dest_path, "_attachment_path": tmp_path}
+    raw = file.read()
+    print(f"  upload: {file.filename} ({len(raw):,} bytes) → {dest_path}")
     try:
-        run_async(run_operation("upload", payload))
-        return jsonify({"ok": True})
+        content  = raw.decode("utf-8")
+        encoding = "text"
+    except UnicodeDecodeError:
+        content  = base64.b64encode(raw).decode()
+        encoding = "base64"
+    payload = {"dest_path": dest_path, "content": content, "encoding": encoding}
+    try:
+        enqueue("upload", payload, f"upload {file.filename} → {dest_path}")
+        return jsonify({"ok": True, "queued": state["queue_depth"]})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    finally:
-        state["busy"] = False
-        # Clean up temp file after a delay
-        threading.Timer(30, lambda: os.unlink(tmp_path) if os.path.exists(tmp_path) else None).start()
 
+# ── BOOT ──────────────────────────────────────────────────────────────
 
-# ── MAIN ──────────────────────────────────────────────────────────────
+def start_loop():
+    loop = asyncio.new_event_loop()
+    state["loop"] = loop
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(get_page())
+    loop.run_until_complete(queue_worker())  # runs forever
 
 if __name__ == "__main__":
     print(f"""
 ╔══════════════════════════════════════╗
-║       Claude Bridge Server v1.0      ║
+║     Claude Pi Bridge Server v3.0     ║
 ╠══════════════════════════════════════╣
-║  Port:     {SERVER_PORT}                        ║
-║  Uploads:  {UPLOAD_DIR[:30]}  ║
+║  Port:   {SERVER_PORT}                          ║
+║  Queue:  one op at a time            ║
+║  Wait:   FILEOP_DONE signal          ║
 ╚══════════════════════════════════════╝
-
-1. Starting browser...
-2. Expose with:  ngrok http {SERVER_PORT}
-3. Set the ngrok URL in the GitHub Pages site config
-
+Set PINNED_CHAT_URL at top of file.
+Then: ngrok http {SERVER_PORT}
 """)
-
-    # Start playwright loop in background thread
-    t = threading.Thread(target=start_event_loop, daemon=True)
-    t.start()
-
-    # Wait for browser to be ready
+    threading.Thread(target=start_loop, daemon=True).start()
     for _ in range(30):
-        if state["ready"]:
-            break
+        if state["ready"]: break
         time.sleep(1)
-
     app.run(host="0.0.0.0", port=SERVER_PORT, debug=False)
