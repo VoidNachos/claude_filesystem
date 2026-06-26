@@ -67,4 +67,4 @@ The container resets between conversations, so anything written here won't survi
 
 ---
 
-*Made by [VoidNachos](https://github.com/VoidNachos) and Claude — and B-Bot approved 🤖*
+*Made by [VoidNachos](https://github.com/VoidNachos) and Claude
