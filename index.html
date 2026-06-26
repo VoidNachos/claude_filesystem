@@ -351,7 +351,54 @@ function showSettings(){document.getElementById("s-pi").value=PI_URL;document.ge
 // INIT
 async function init(){if(!PI_URL||!REPO){document.getElementById("setup").classList.add("show");return}await refreshAll();setInterval(pollPi,3000)}
 async function refreshAll(){setPi("busy","Loading...");try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/filetree.json?t=${Date.now()}`);if(!r.ok)throw new Error("filetree.json not found");snap=await r.json();navigate(curPath,false);setPi("ready")}catch(e){setPi("error",e.message);toast(e.message)}}
-async function pollPi(){try{const r=await fetch(`${PI_URL}/api/status`,{signal:AbortSignal.timeout(3000)});const d=await r.json();setPi(d.busy?"busy":"ready",d.busy?d.last_op:"Pi connected")}catch{setPi("error","Pi offline")}}
+let piLocked = false;
+
+async function pollPi(){
+  // Poll lock.txt from GitHub — works even if Pi is unreachable
+  try {
+    const r = await fetch(
+      `https://raw.githubusercontent.com/${REPO}/${BRANCH}/lock.txt?t=${Date.now()}`,
+      {cache: "no-store"}
+    );
+    const val = (await r.text()).trim();
+    piLocked = val === "1";
+    if (piLocked) {
+      setPi("busy", "Locked — another user is sending changes...");
+    } else {
+      // Also check Pi is online
+      try {
+        const r2 = await fetch(`${PI_URL}/api/status`, {signal: AbortSignal.timeout(2000)});
+        const d  = await r2.json();
+        setPi("ready", "Pi connected");
+      } catch {
+        setPi("error", "Pi offline");
+      }
+    }
+  } catch {
+    // Can't read lock.txt — assume unlocked but warn
+    piLocked = false;
+    setPi("error", "Could not read lock");
+  }
+  updateSendBtn();
+}
+
+function updateSendBtn() {
+  const btn = document.getElementById('sb-send-btn');
+  if (!btn) return;
+  if (piLocked) {
+    btn.disabled = true;
+    btn.textContent = 'Pi busy...';
+    btn.title = 'Another user is currently sending changes. Please wait.';
+  } else if (pending.length === 0) {
+    btn.disabled = false;
+    btn.textContent = 'Send changes';
+    btn.title = '';
+  } else {
+    btn.disabled = false;
+    btn.textContent = `Send ${pending.length} change${pending.length!==1?'s':''}`;
+    btn.title = '';
+  }
+}
 function setPi(s,m){document.getElementById("pidot").className="dot "+s;document.getElementById("pistat").textContent=m||s}
 
 // TREE
@@ -458,6 +505,7 @@ function clearPending() {
 }
 
 function updateSendBar() {
+  updateSendBtn();
   const bar = document.getElementById('sendbar');
   const num = document.getElementById('sb-num');
   const lst = document.getElementById('sb-list');
@@ -496,7 +544,8 @@ function opIcon(type) {
 }
 
 async function sendAll() {
-  if (!pending.length) return;
+  if (!pending.length || piLocked) return;
+  piLocked = true;
   const btn = document.getElementById('sb-send-btn');
   btn.disabled = true;
   btn.textContent = 'Sending...';
@@ -522,8 +571,8 @@ async function sendAll() {
     await new Promise(r => setTimeout(r, 500));
   }
 
-  btn.disabled = false;
-  btn.textContent = 'Send changes';
+  piLocked = false;
+  updateSendBtn();
   if (ok) {
     toast(`Sent ${ops.length} change${ops.length!==1?'s':''}  — refreshing...`);
     setTimeout(refreshAll, 8000);
