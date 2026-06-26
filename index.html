@@ -230,20 +230,20 @@ body{font-family:var(--font);font-size:12px;background:var(--bg);color:var(--tex
 <div id="setup">
   <div id="sbox">
     <h2>🗂 File Explorer — Claude</h2>
-    <p>Connect your Pi bridge server and GitHub repo.</p>
-    <label>Pi Server URL (ngrok)</label><input id="s-pi" type="url" placeholder="https://abc.ngrok.io">
-    <label>GitHub Repo</label><input id="s-repo" placeholder="VoidNachos/claude_filesystem">
-    <div style="margin-top:16px;display:flex;justify-content:flex-end">
+    <p>Enter the Pi bridge server URL to connect.</p>
+    <label>Pi Server URL</label><input id="s-pi" type="url" placeholder="https://abc.ngrok-free.app">
+    <div style="margin-top:16px;display:flex;justify-content:flex-end;gap:8px">
+      <button class="mbtn" onclick="document.getElementById('setup').classList.remove('show')">Cancel</button>
       <button class="mbtn p" onclick="saveSetup()">Connect</button>
     </div>
   </div>
 </div>
 
 <div id="titlebar">
-  <span style="font-size:16px">🗂</span>
+  <span style="font-size:16px;cursor:pointer" onclick="logoClick()" title="">🗂</span>
   <span class="title" id="wintitle">File Explorer</span>
   <div id="pi-ind"><div class="dot" id="pidot"></div><span id="pistat">connecting...</span></div>
-  <button class="win-btn" onclick="showSettings()" title="Settings">⚙</button>
+  
   <button class="win-btn" onclick="refreshAll()" title="Refresh">↻</button>
 </div>
 
@@ -365,43 +365,40 @@ body{font-family:var(--font);font-size:12px;background:var(--bg);color:var(--tex
 
 <script>
 let PI_URL = localStorage.getItem("pi_url")||"";
-let REPO   = localStorage.getItem("gh_repo")||"";
+const REPO = "VoidNachos/claude_filesystem";
 const BRANCH="main";
 let snap=null, curPath="/home/claude", hist=[], hIdx=-1;
 let sel=new Set(), sortCol="name", sortAsc=true, view="details", filter="";
 let editPath=null;
 
 // SETUP
-function saveSetup(){PI_URL=document.getElementById("s-pi").value.trim().replace(/\/$/,"");REPO=document.getElementById("s-repo").value.trim();localStorage.setItem("pi_url",PI_URL);localStorage.setItem("gh_repo",REPO);document.getElementById("setup").classList.remove("show");init()}
-function showSettings(){document.getElementById("s-pi").value=PI_URL;document.getElementById("s-repo").value=REPO;document.getElementById("setup").classList.add("show")}
+function saveSetup(){PI_URL=document.getElementById("s-pi").value.trim().replace(/\/$/,"");localStorage.setItem("pi_url",PI_URL);document.getElementById("setup").classList.remove("show");init()}
+// Secret: click the 🗂 logo 5 times fast to open settings
+let logoClicks=0,logoTimer=null;
+function logoClick(){logoClicks++;clearTimeout(logoTimer);logoTimer=setTimeout(()=>logoClicks=0,1500);if(logoClicks>=5){logoClicks=0;showSettings()}}
+function showSettings(){document.getElementById("s-pi").value=PI_URL;document.getElementById("setup").classList.add("show")}
 
 // INIT
-async function init(){if(!PI_URL||!REPO){document.getElementById("setup").classList.add("show");return}await refreshAll();setInterval(pollPi,3000)}
+async function init(){if(!PI_URL){document.getElementById("setup").classList.add("show");return}await refreshAll();setInterval(pollPi,3000)}
 async function refreshAll(){
   setPi("busy","Loading...");
   try {
-    // Use GitHub API to bypass CDN cache, fall back to raw if PI_URL not set
-    let snap_data;
-    try {
-      // Fetch blob SHA first, then fetch blob content — always fresh
-      const treeR = await fetch(
-        `https://api.github.com/repos/${REPO}/git/trees/${BRANCH}`,
-        {headers: {"Cache-Control": "no-cache"}}
-      );
-      const tree = await treeR.json();
-      const ftItem = tree.tree && tree.tree.find(f => f.path === "filetree.json");
-      if (ftItem && ftItem.url) {
-        const blobR = await fetch(ftItem.url, {headers:{"Cache-Control":"no-cache"}});
-        const blob  = await blobR.json();
-        snap_data = JSON.parse(atob(blob.content.replace(/\n/g,"")));
-      } else throw new Error("filetree.json not in tree");
-    } catch {
-      // Fallback to raw URL
-      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/filetree.json?t=${Date.now()}`);
-      if (!r.ok) throw new Error("filetree.json not found");
-      snap_data = await r.json();
-    }
-    snap = snap_data;
+    // Step 1: get tree to find current blob SHA (always fresh, no CDN cache)
+    const treeR = await fetch(
+      `https://api.github.com/repos/${REPO}/git/trees/${BRANCH}`,
+      {cache:"no-store"}
+    );
+    const tree  = await treeR.json();
+    const item  = (tree.tree||[]).find(f => f.path === "filetree.json");
+    if (!item) throw new Error("filetree.json not in repo tree");
+
+    // Step 2: fetch raw blob by SHA — works for any size, always live
+    const blobR = await fetch(
+      `https://api.github.com/repos/${REPO}/git/blobs/${item.sha}`,
+      {cache:"no-store", headers:{"Accept":"application/vnd.github.raw+json"}}
+    );
+    if (!blobR.ok) throw new Error(`blob fetch failed: ${blobR.status}`);
+    snap = await blobR.json();
     navigate(curPath, false);
     setPi("ready");
   } catch(e) {
