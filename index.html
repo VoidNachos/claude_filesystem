@@ -746,13 +746,45 @@ function triggerUpload() {
   document.getElementById("file-input").click();
 }
 
+function getDirs(node, path, results=[]) {
+  if (!node) return results;
+  if (node.__type === "dir" && node.__children) {
+    results.push(path);
+    for (const [name, child] of Object.entries(node.__children))
+      getDirs(child, path + "/" + name, results);
+  }
+  return results;
+}
+
 async function handleFileInput(files) {
+  // Collect all directories from the loaded snapshot
+  const dirs = [];
+  if (fileTree) {
+    const rootMap = {home:"/home",etc:"/etc",tmp:"/tmp",mnt:"/mnt",root:"/root"};
+    for (const [key, rpath] of Object.entries(rootMap))
+      if (fileTree[key]) getDirs(fileTree[key], rpath, dirs);
+  }
+  if (!dirs.length) dirs.push("/home/claude", "/tmp", "/etc");
+
+  const options = dirs.map(d => `<option value="${d}">${d}</option>`).join("");
+
   for (const file of files) {
     showModal("Upload File", `
-      <label>Upload <strong>${file.name}</strong> to path:</label>
-      <input id="m-dest" type="text" value="/home/claude/${file.name}" />
+      <label>File</label>
+      <input type="text" value="${file.name}" disabled style="opacity:0.5" />
+      <label style="margin-top:8px">Destination directory</label>
+      <select id="m-dir" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:var(--font-mono);font-size:13px;outline:none">
+        ${options}
+      </select>
+      <label style="margin-top:8px">Or type a full path</label>
+      <input id="m-dest" type="text" placeholder="/home/claude/${file.name}" />
+      <p style="font-size:11px;color:var(--muted);margin-top:4px">
+        Full path overrides directory selection above.
+      </p>
     `, "Upload", async () => {
-      const dest = document.getElementById("m-dest").value.trim();
+      const manual = document.getElementById("m-dest").value.trim();
+      const dir    = document.getElementById("m-dir").value;
+      const dest   = manual || (dir + "/" + file.name);
       closeModal();
       await uploadFile(file, dest);
     });
