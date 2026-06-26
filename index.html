@@ -588,28 +588,33 @@ function fileIcon(name) {
 }
 
 // ── FILE OPEN / EDITOR ─────────────────────────────────────────────
-async function openFile(path, meta) {
+function getNodeAtPath(path) {
+  // Navigate the snapshot tree to find a node at the given absolute path
+  // e.g. /home/claude/test.py -> snapshot.home.__children.claude.__children["test.py"]
+  const parts = path.split("/").filter(Boolean);
+  if (!parts.length || !fileTree) return null;
+  const rootMap = {"home":"home","etc":"etc","tmp":"tmp","mnt":"mnt","root":"root","opt":"opt"};
+  const rootKey = rootMap[parts[0]];
+  if (!rootKey) return null;
+  let node = fileTree[rootKey];
+  for (let i=1; i<parts.length; i++) {
+    if (!node || node.__type !== "dir") return null;
+    node = (node.__children || {})[parts[i]];
+  }
+  return node;
+}
+
+function openFile(path, meta) {
   setPathBar(path);
-  if (openTabs[path]) {
-    activateTab(path);
-    return;
-  }
+  if (openTabs[path]) { activateTab(path); return; }
 
-  setStatus("busy", "loading file...");
-  try {
-    // Fetch file content from GitHub raw
-    const url = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/files${path}?t=${Date.now()}`;
-    const r   = await fetch(url);
-    const content = r.ok ? await r.text() : "";
+  const node = getNodeAtPath(path);
+  const content = (node && node.content != null) ? node.content : "";
+  const isBinary = node && node.encoding === "binary";
 
-    openTabs[path] = { content, modified: false };
-    addTab(path);
-    activateTab(path);
-    setStatus("ready");
-  } catch (e) {
-    toast("Could not load file: " + e.message, "error");
-    setStatus("error");
-  }
+  openTabs[path] = { content: isBinary ? "[binary file — not editable]" : content, modified: false, binary: isBinary };
+  addTab(path);
+  activateTab(path);
 }
 
 function addTab(path) {
