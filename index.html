@@ -135,6 +135,67 @@ body{font-family:var(--font);font-size:12px;background:var(--bg);color:var(--tex
 #sbox label{font-size:11px;color:var(--muted);display:block;margin-bottom:3px;margin-top:10px}
 #sbox input{width:100%;height:30px;border:1px solid var(--border);border-radius:4px;padding:0 8px;font-family:var(--font);font-size:12px;background:var(--surface);color:var(--text);outline:none}
 #sbox input:focus{border-color:var(--accent)}
+
+/* ── SEND BAR ── */
+#sendbar {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: #1A1A1A; color: #fff;
+  border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  display: none; align-items: center; gap: 0;
+  z-index: 400; overflow: hidden; min-width: 420px;
+  border: 1px solid #333;
+}
+#sendbar.show { display: flex; }
+#sendbar .sb-count {
+  padding: 0 16px; font-size: 13px; font-weight: 600;
+  border-right: 1px solid #333; height: 44px;
+  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+#sendbar .sb-list {
+  flex: 1; padding: 0 12px; font-size: 11px; color: #aaa;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+#sendbar .sb-btn {
+  height: 44px; padding: 0 18px; border: none; cursor: pointer;
+  font-family: var(--font); font-size: 12px; font-weight: 600;
+  white-space: nowrap;
+}
+#sendbar .sb-clear { background: transparent; color: #aaa; border-right: 1px solid #333; }
+#sendbar .sb-clear:hover { background: #333; color: #fff; }
+#sendbar .sb-review { background: transparent; color: #aaa; border-right: 1px solid #333; }
+#sendbar .sb-review:hover { background: #333; color: #fff; }
+#sendbar .sb-send { background: var(--accent); color: #fff; }
+#sendbar .sb-send:hover { background: #005BA3; }
+#sendbar .sb-send:disabled { background: #555; cursor: default; }
+
+/* pending dot on file rows */
+.frow.pending .fc.nm::before,
+.iitem.pending .il::before {
+  content: '●'; color: #D83B01; font-size: 8px;
+  vertical-align: middle; margin-right: 4px;
+}
+
+/* review panel */
+#review-panel {
+  position: fixed; bottom: 76px; left: 50%; transform: translateX(-50%);
+  background: #1A1A1A; border: 1px solid #333; border-radius: 8px;
+  width: 500px; max-height: 300px; overflow-y: auto;
+  z-index: 399; display: none; padding: 8px 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+}
+#review-panel.show { display: block; }
+.rp-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; font-size: 12px; color: #ddd;
+  border-bottom: 1px solid #2a2a2a;
+}
+.rp-item:last-child { border-bottom: none; }
+.rp-icon { font-size: 14px; flex-shrink: 0; }
+.rp-desc { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rp-type { font-size: 10px; color: #888; padding: 2px 6px; background: #333; border-radius: 3px; flex-shrink: 0; }
+.rp-remove { background: none; border: none; color: #888; cursor: pointer; font-size: 14px; padding: 0 4px; }
+.rp-remove:hover { color: #f87171; }
+
 </style>
 </head>
 <body>
@@ -362,13 +423,138 @@ function showProps(){closeCtx();if(sel.size!==1)return;const n=[...sel][0],node=
 function triggerUpload(){document.getElementById("finput").click()}
 function getDirs(node,path,res=[]){if(!node||node.__type!=="dir"||!node.__children)return res;res.push(path);for(const[n,c]of Object.entries(node.__children))getDirs(c,path+"/"+n,res);return res}
 async function handleFiles(files){const dirs=[];if(snap){const rm={home:"/home/claude",etc:"/etc",tmp:"/tmp",mnt:"/mnt",root:"/root"};for(const[k,p]of Object.entries(rm))if(snap[k])getDirs(snap[k],p,dirs)}if(!dirs.length)dirs.push("/home/claude","/tmp");const opts=dirs.map(d=>`<option value="${d}"${d===curPath?" selected":""}>${d}</option>`).join("");for(const file of files){showModal("Upload",`<label>File</label><input value="${file.name}" disabled style="opacity:.6"><label>Destination folder</label><select id="md">${opts}</select><label>Or type full path</label><input id="mp" placeholder="${curPath}/${file.name}">`,"Upload",async()=>{const m=document.getElementById("mp").value.trim(),d=document.getElementById("md").value,dest=m||(d+"/"+file.name);closeModal();await uploadFile(file,dest)})}}
-async function uploadFile(file,dest){setPi("busy","Uploading...");const fd=new FormData();fd.append("file",file);fd.append("dest_path",dest);try{const r=await fetch(`${PI_URL}/api/upload`,{method:"POST",body:fd});const d=await r.json();if(d.ok){toast("Uploaded → "+dest);setTimeout(refreshAll,10000)}else toast("Upload failed: "+d.error)}catch(e){toast("Error: "+e.message)}setPi("ready")}
+async function uploadFile(file,dest){setPi("busy","Uploading...");const fd=new FormData();fd.append("file",file);fd.append("dest_path",dest);try{const r=await fetch(`${PI_URL}/api/upload`,{method:'POST',body:fd});const d=await r.json();if(d.ok){toast("Uploaded → "+dest);setTimeout(refreshAll,10000)}else toast("Upload failed: "+d.error)}catch(e){toast("Error: "+e.message)}setPi("ready")}
 document.addEventListener("dragover",e=>{e.preventDefault();document.getElementById("drop").classList.add("show")});
 document.addEventListener("dragleave",e=>{if(!e.relatedTarget)document.getElementById("drop").classList.remove("show")});
 document.addEventListener("drop",async e=>{e.preventDefault();document.getElementById("drop").classList.remove("show");await handleFiles([...e.dataTransfer.files])});
 
-// SEND OP
-async function sendOp(type,payload){setPi("busy",type+"...");try{const r=await fetch(`${PI_URL}/api/operation`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,payload})});const d=await r.json();if(!d.ok)throw new Error(d.error||"?");setPi("ready");return true}catch(e){toast("Error: "+e.message);setPi("error");return false}}
+// ── PENDING QUEUE ─────────────────────────────────────────────────
+let pending = []; // [{id, type, payload, desc}]
+let pendingId = 0;
+let reviewOpen = false;
+
+function addPending(type, payload, desc) {
+  const id = ++pendingId;
+  pending.push({id, type, payload, desc});
+  updateSendBar();
+  // mark file row as pending
+  const name = (payload.path||payload.old_path||payload.dest_path||'').split('/').pop();
+  document.querySelectorAll(`.frow[data-name="${name}"], .iitem[data-name="${name}"]`)
+    .forEach(el => el.classList.add('pending'));
+  return id;
+}
+
+function removePending(id) {
+  pending = pending.filter(p => p.id !== id);
+  updateSendBar();
+  renderReview();
+}
+
+function clearPending() {
+  pending = [];
+  updateSendBar();
+  renderReview();
+  document.querySelectorAll('.frow.pending,.iitem.pending').forEach(el=>el.classList.remove('pending'));
+}
+
+function updateSendBar() {
+  const bar = document.getElementById('sendbar');
+  const num = document.getElementById('sb-num');
+  const lst = document.getElementById('sb-list');
+  if (pending.length === 0) {
+    bar.classList.remove('show');
+    if (reviewOpen) toggleReview();
+  } else {
+    bar.classList.add('show');
+    num.textContent = pending.length;
+    lst.textContent = pending.map(p=>p.desc).join('  ·  ');
+  }
+  renderReview();
+}
+
+function toggleReview() {
+  reviewOpen = !reviewOpen;
+  document.getElementById('review-panel').classList.toggle('show', reviewOpen);
+  renderReview();
+}
+
+function renderReview() {
+  const el = document.getElementById('rp-items');
+  if (!el) return;
+  el.innerHTML = pending.map(p => `
+    <div class="rp-item">
+      <span class="rp-icon">${opIcon(p.type)}</span>
+      <span class="rp-desc">${p.desc}</span>
+      <span class="rp-type">${p.type}</span>
+      <button class="rp-remove" onclick="removePending(${p.id})" title="Remove">✕</button>
+    </div>
+  `).join('') || '<div style="padding:12px 14px;color:#888;font-size:12px">No pending changes</div>';
+}
+
+function opIcon(type) {
+  return {edit:'📝',delete:'🗑',rename:'✏',mkdir:'📁',upload:'⬆',refresh:'↻'}[type]||'⚡';
+}
+
+async function sendAll() {
+  if (!pending.length) return;
+  const btn = document.getElementById('sb-send-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  // Send one at a time, wait for each
+  const ops = [...pending];
+  pending = [];
+  updateSendBar();
+  document.querySelectorAll('.frow.pending,.iitem.pending').forEach(el=>el.classList.remove('pending'));
+
+  let ok = true;
+  for (const op of ops) {
+    setPi('busy', op.desc);
+    const success = await sendOpNow(op.type, op.payload, op.desc);
+    if (!success) {
+      // Re-add failed op back to pending
+      pending.unshift(op);
+      updateSendBar();
+      ok = false;
+      break;
+    }
+    // Small delay between ops so Pi queue doesn't get overwhelmed
+    await new Promise(r => setTimeout(r, 500));
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Send changes';
+  if (ok) {
+    toast(`Sent ${ops.length} change${ops.length!==1?'s':''}  — refreshing...`);
+    setTimeout(refreshAll, 8000);
+  }
+}
+
+// SEND OP — immediate send (used internally by sendAll)
+async function sendOpNow(type, payload, desc) {
+  try {
+    const r = await fetch(`${PI_URL}/api/operation`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({type, payload, desc})
+    });
+    const d = await r.json();
+    if (!d.ok) throw new Error(d.error || '?');
+    setPi('ready');
+    return true;
+  } catch(e) {
+    toast('Error: ' + e.message);
+    setPi('error', e.message);
+    return false;
+  }
+}
+
+// Legacy sendOp — now adds to pending queue instead
+function sendOp(type, payload, desc) {
+  desc = desc || type + ' ' + (payload.path||payload.old_path||payload.dest_path||'');
+  addPending(type, payload, desc);
+  return Promise.resolve(true);
+}
 
 // MODAL
 function showModal(title,bodyHTML,okLabel,onOk){document.getElementById("mtitle").textContent=title;document.getElementById("mbody").innerHTML=bodyHTML;document.getElementById("mok").textContent=okLabel;document.getElementById("mok").onclick=onOk;document.getElementById("mbg").classList.add("show");setTimeout(()=>{const i=document.querySelector("#modal input:not([disabled])");if(i){i.focus();i.select()}},50)}
@@ -382,5 +568,23 @@ document.addEventListener("keydown",e=>{const tag=e.target.tagName;if(tag==="INP
 
 init();
 </script>
+
+<!-- SEND BAR -->
+<div id="sendbar">
+  <div class="sb-count">
+    <span>⚡</span>
+    <span id="sb-num">0</span> pending
+  </div>
+  <div class="sb-list" id="sb-list"></div>
+  <button class="sb-btn sb-review" onclick="toggleReview()">Review ▾</button>
+  <button class="sb-btn sb-clear"  onclick="clearPending()">Clear</button>
+  <button class="sb-btn sb-send"   onclick="sendAll()" id="sb-send-btn">Send changes</button>
+</div>
+
+<!-- REVIEW PANEL -->
+<div id="review-panel" id="review-panel">
+  <div id="rp-items"></div>
+</div>
+
 </body>
 </html>
