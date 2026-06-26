@@ -635,38 +635,57 @@ function opIcon(type) {
 
 async function sendAll() {
   if (!pending.length || piLocked) return;
+
+  // Take only ONE operation at a time
+  const op  = pending.shift();
+  updateSendBar();
+  document.querySelectorAll(`.frow.pending,.iitem.pending`).forEach(el=>el.classList.remove('pending'));
+
   piLocked = true;
   const btn = document.getElementById('sb-send-btn');
   btn.disabled = true;
   btn.textContent = 'Sending...';
+  setPi('busy', op.desc);
 
-  // Send one at a time, wait for each
-  const ops = [...pending];
-  pending = [];
-  updateSendBar();
-  document.querySelectorAll('.frow.pending,.iitem.pending').forEach(el=>el.classList.remove('pending'));
-
-  let ok = true;
-  for (const op of ops) {
-    setPi('busy', op.desc);
-    const success = await sendOpNow(op.type, op.payload, op.desc);
-    if (!success) {
-      // Re-add failed op back to pending
-      pending.unshift(op);
-      updateSendBar();
-      ok = false;
-      break;
-    }
-    // Small delay between ops so Pi queue doesn't get overwhelmed
-    await new Promise(r => setTimeout(r, 500));
+  const ok = await sendOpNow(op.type, op.payload, op.desc);
+  if (!ok) {
+    // Put it back
+    pending.unshift(op);
+    updateSendBar();
+    piLocked = false;
+    updateSendBtn();
+    return;
   }
+
+  // Wait for Pi to finish (lock.txt goes back to 0)
+  setPi('busy', 'Waiting for Claude to finish...');
+  btn.textContent = 'Waiting...';
+  await waitForUnlock();
 
   piLocked = false;
   updateSendBtn();
-  if (ok) {
-    toast(`Sent ${ops.length} change${ops.length!==1?'s':''}  — refreshing...`);
-    setTimeout(refreshAll, 8000);
+  toast(`Done: ${op.desc}`);
+
+  // Refresh the tree
+  await refreshAll();
+
+  // If more pending, re-enable and let user send next
+  if (pending.length) {
+    toast(`${pending.length} change${pending.length!==1?'s':''} still pending — hit Send for next`);
   }
+}
+
+async function waitForUnlock(timeout=180000) {
+  const start = Date.now();
+  while (Date.now() - start < timeout) {
+    try {
+      const r   = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/lock.txt?t=${Date.now()}`, {cache:'no-store'});
+      const val = (await r.text()).trim();
+      if (val === '0') return true;
+    } catch {}
+    await new Promise(r => setTimeout(r, 2000));
+  }
+  return false;
 }
 
 // SEND OP — immediate send (used internally by sendAll)
