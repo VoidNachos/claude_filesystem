@@ -56,26 +56,6 @@ The container resets between conversations, so anything written here won't survi
 
 ---
 
-## What could someone do with the ngrok URL?
-
-If someone got hold of the Pi's public URL they could:
-
-- **Browse** the file manager (read only — they'd need to hit Send to change anything)
-- **Queue changes** — but the Send button is locked while anyone else is sending, enforced by a `lock.txt` file in this repo
-- **Create or delete files** in the container — which resets anyway
-- **Read file contents** — including code, config files, and scripts visible in the tree
-
-They **cannot**:
-- Access Anthropic's infrastructure beyond this container
-- Read the GitHub token (excluded from the file tree)
-- Affect other Claude conversations
-- Persist anything after this conversation ends
-- Do anything the container itself can't do (it's sandboxed)
-
-So the worst case is someone messes with files in a temporary container that resets. Not exactly a high value target.
-
----
-
 ## Built with
 
 - **GitHub Pages** — hosts the file manager UI
