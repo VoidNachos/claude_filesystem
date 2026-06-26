@@ -196,6 +196,33 @@ body{font-family:var(--font);font-size:12px;background:var(--bg);color:var(--tex
 .rp-remove { background: none; border: none; color: #888; cursor: pointer; font-size: 14px; padding: 0 4px; }
 .rp-remove:hover { color: #f87171; }
 
+
+/* ── IMAGE VIEWER ── */
+#imgview {
+  display:none; position:fixed; inset:0; z-index:600;
+  background:rgba(0,0,0,.85);
+  align-items:center; justify-content:center; flex-direction:column; gap:12px;
+}
+#imgview.show { display:flex; }
+#imgview img {
+  max-width:90vw; max-height:85vh;
+  border-radius:4px; box-shadow:0 8px 40px rgba(0,0,0,.6);
+  object-fit:contain;
+}
+#imgview .iv-bar {
+  display:flex; align-items:center; gap:12px;
+  color:#fff; font-size:13px;
+}
+#imgview .iv-name { font-weight:600; }
+#imgview .iv-size { color:#aaa; font-size:11px; }
+#imgview .iv-close {
+  position:fixed; top:16px; right:20px;
+  background:rgba(0,0,0,.5); border:none; color:#fff;
+  width:36px; height:36px; border-radius:50%; font-size:18px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+#imgview .iv-close:hover { background:rgba(255,255,255,.2); }
+
 </style>
 </head>
 <body>
@@ -430,9 +457,9 @@ function updSel(){document.querySelectorAll(".frow,.iitem").forEach(el=>el.class
 function updateCmds(){const h=sel.size>0;["btnCut","btnCopy","btnDel"].forEach(id=>document.getElementById(id).disabled=!h);document.getElementById("btnRename").disabled=sel.size!==1}
 
 // OPEN
-function openItem(n,node){const fp=curPath.replace(/\/$/,"")+"/"+n;if(!node||node.__type==="dir")navigate(fp);else openEd(fp,node)}
+function openItem(n,node){const fp=curPath.replace(/\/$/,"")+"/"+n;if(!node||node.__type==="dir")navigate(fp);else if(isImage(n))openImg(fp,node);else openEd(fp,node)}
 function ctxOpen(){closeCtx();if(sel.size!==1)return;const n=[...sel][0],node=(getNode(curPath).__children||{})[n];openItem(n,node)}
-function ctxEdit(){closeCtx();if(sel.size!==1)return;const n=[...sel][0],node=(getNode(curPath).__children||{})[n],fp=curPath+"/"+n;if(node&&node.__type!=="dir")openEd(fp,node)}
+function ctxEdit(){closeCtx();if(sel.size!==1)return;const n=[...sel][0],node=(getNode(curPath).__children||{})[n],fp=curPath+"/"+n;if(!node||node.__type==="dir")return;if(isImage(n))openImg(fp,node);else openEd(fp,node)}
 
 // EDITOR
 function openEd(path,node){if(node.encoding==="binary"){toast("Binary file — cannot edit");return}editPath=path;const ta=document.getElementById("edta");ta.value=node.content||"";document.getElementById("edname").textContent=path.split("/").pop()+" — Notepad";document.getElementById("edmod").classList.remove("show");const c=node.content||"";document.getElementById("edlines").textContent=c.split("\n").length+" lines";document.getElementById("edsize").textContent=new Blob([c]).size+" B";document.getElementById("edwin").classList.add("show");ta.focus()}
@@ -613,7 +640,42 @@ function closeModal(){document.getElementById("mbg").classList.remove("show")}
 let tt;function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),3000)}
 
 // KEYBOARD
-document.addEventListener("keydown",e=>{const tag=e.target.tagName;if(tag==="INPUT"||tag==="TEXTAREA"||tag==="SELECT")return;if((e.ctrlKey||e.metaKey)&&e.key==="s"){e.preventDefault();saveFile()}if(e.key==="F2")renameModal();if(e.key==="Delete")deleteSelected();if(e.key==="Backspace")goBack();if(e.key==="Enter"&&sel.size===1){const n=[...sel][0],node=(getNode(curPath).__children||{})[n];openItem(n,node)}if(e.key==="Escape"){sel.clear();updSel();updateCmds();closeCtx()}});
+document.addEventListener("keydown",e=>{const tag=e.target.tagName;if(tag==="INPUT"||tag==="TEXTAREA"||tag==="SELECT")return;if((e.ctrlKey||e.metaKey)&&e.key==="s"){e.preventDefault();saveFile()}if(e.key==="F2")renameModal();if(e.key==="Delete")deleteSelected();if(e.key==="Backspace")goBack();if(e.key==="Enter"&&sel.size===1){const n=[...sel][0],node=(getNode(curPath).__children||{})[n];openItem(n,node)}if(e.key==="Escape"){sel.clear();updSel();updateCmds();closeCtx();closeImg()}});
+
+
+// ── IMAGE VIEWER ──────────────────────────────────────────────────
+const IMG_EXTS = new Set(['png','jpg','jpeg','gif','webp','bmp','ico','svg']);
+const IMG_MIME = {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',
+  webp:'image/webp',bmp:'image/bmp',ico:'image/x-icon',svg:'image/svg+xml'};
+
+function isImage(name) {
+  return IMG_EXTS.has(name.split('.').pop().toLowerCase());
+}
+
+function openImg(path, node) {
+  const name = path.split('/').pop();
+  const ext  = name.split('.').pop().toLowerCase();
+  const mime = IMG_MIME[ext] || 'image/png';
+  let src;
+  if (node.encoding === 'base64' && node.content) {
+    src = `data:${mime};base64,${node.content}`;
+  } else if (node.encoding === 'text' && node.content) {
+    // SVG stored as text
+    src = `data:${mime};charset=utf-8,${encodeURIComponent(node.content)}`;
+  } else {
+    toast('Image content not available — try refreshing');
+    return;
+  }
+  document.getElementById('iv-img').src  = src;
+  document.getElementById('iv-name').textContent = name;
+  document.getElementById('iv-size').textContent = fSize(node);
+  document.getElementById('imgview').classList.add('show');
+}
+
+function closeImg() {
+  document.getElementById('imgview').classList.remove('show');
+  document.getElementById('iv-img').src = '';
+}
 
 init();
 </script>
@@ -633,6 +695,17 @@ init();
 <!-- REVIEW PANEL -->
 <div id="review-panel" id="review-panel">
   <div id="rp-items"></div>
+</div>
+
+
+<!-- IMAGE VIEWER -->
+<div id="imgview" onclick="closeImg()">
+  <button class="iv-close" onclick="closeImg()">✕</button>
+  <img id="iv-img" src="" alt="" onclick="event.stopPropagation()">
+  <div class="iv-bar" onclick="event.stopPropagation()">
+    <span class="iv-name" id="iv-name"></span>
+    <span class="iv-size" id="iv-size"></span>
+  </div>
 </div>
 
 </body>
