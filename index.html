@@ -489,7 +489,12 @@ async function deleteSelected(){closeCtx();if(!sel.size)return;if(!confirm(`Dele
 function cutItem(){if(sel.size===1)toast("Cut (not yet implemented — use rename/delete)")}
 function doCopyPath(){closeCtx();if(!sel.size)return;const p=curPath+"/"+[...sel][0];navigator.clipboard?.writeText(p).then(()=>toast("Path copied: "+p)).catch(()=>toast(p))}
 function renameModal(){closeCtx();if(sel.size!==1)return;const n=[...sel][0];showModal("Rename",`<label>New name</label><input id="mn" value="${n}">`,"Rename",async()=>{const nn=document.getElementById("mn").value.trim();if(!nn||nn===n){closeModal();return}const ok=await sendOp("rename",{old_path:curPath+"/"+n,new_path:curPath+"/"+nn});if(ok){closeModal();toast("Renamed");setTimeout(refreshAll,6000)}})}
-function newFileModal(){showModal("New file",`<label>File name</label><input id="mn" placeholder="newfile.txt">`,"Create",async()=>{const n=document.getElementById("mn").value.trim();if(!n)return;const ok=await sendOp("edit",{path:curPath+"/"+n,content:""});if(ok){closeModal();toast("Created");setTimeout(refreshAll,6000)}})}
+function newFileModal(){showModal("New file",`
+  <label>File name</label>
+  <input id="mn" placeholder="newfile.txt" style="margin-bottom:10px">
+  <label>Content</label>
+  <textarea id="mc" style="width:100%;height:180px;border:1px solid var(--border);border-radius:4px;padding:8px;font-family:'Cascadia Code','Consolas',monospace;font-size:12px;resize:vertical;outline:none;background:var(--surface);color:var(--text);tab-size:4" spellcheck="false" placeholder="File contents (optional)"></textarea>
+`,"Create",async()=>{const n=document.getElementById("mn").value.trim();if(!n)return;const c=document.getElementById("mc").value;const ok=await sendOp("edit",{path:curPath+"/"+n,content:c});if(ok){closeModal();toast("Created "+n);setTimeout(refreshAll,6000)}})}
 function newFolderModal(){showModal("New folder",`<label>Folder name</label><input id="mn" placeholder="New folder">`,"Create",async()=>{const n=document.getElementById("mn").value.trim();if(!n)return;const ok=await sendOp("mkdir",{path:curPath+"/"+n});if(ok){closeModal();toast("Created");setTimeout(refreshAll,6000)}})}
 function showProps(){closeCtx();if(sel.size!==1)return;const n=[...sel][0],node=(getNode(curPath).__children||{})[n];showModal("Properties",`<label>Name</label><input value="${n}" disabled><label>Path</label><input value="${curPath}/${n}" disabled><label>Type</label><input value="${fType(n,node)}" disabled><label>Size</label><input value="${fSize(node)} (${node?.size||0} bytes)" disabled>`,"Close",closeModal)}
 
